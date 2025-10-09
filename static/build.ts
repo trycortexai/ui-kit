@@ -13,9 +13,6 @@ await Bun.build({
 	entrypoints: ["chat/index.tsx"],
 	outdir: "dist/chat",
 	format: "esm",
-	minify: true,
-	plugins: [
-		tailwindcss,
-		copyHtmlPlugin,
-	],
+	minify: process.env.PRODUCTION === "true",
+	plugins: [tailwindcss, copyHtmlPlugin],
 });

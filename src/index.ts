@@ -1,1 +1,1 @@
-export {CortexChat} from './cortex-chat'
+export { CortexChat } from "./cortex-chat";
