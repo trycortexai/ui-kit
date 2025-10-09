@@ -1,0 +1,21 @@
+import tailwindcss from "bun-plugin-tailwind";
+
+const copyHtmlPlugin: Bun.BunPlugin = {
+	name: "copy-html",
+	setup(build) {
+		build.onEnd(async () => {
+			await Bun.$`cp src/assets/index.html ${build.config.outdir}/index.html`;
+		});
+	},
+};
+
+await Bun.build({
+	entrypoints: ["src/ui/chat/index.tsx"],
+	outdir: "dist/chat",
+	format: "esm",
+	minify: true,
+	plugins: [
+		tailwindcss,
+		copyHtmlPlugin,
+	],
+});

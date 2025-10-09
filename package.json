@@ -4,15 +4,13 @@
 	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
-		"build": "bunup",
-		"dev": "bunup --watch"
+		"build": "bun build.ts"
 	},
 	"devDependencies": {
-		"@bunup/plugin-tailwindcss": "^0.14.9",
 		"@types/bun": "^1.2.20",
 		"@types/react": "^19.1.10",
 		"@types/react-dom": "^19.1.9",
-		"bunup": "^0.14.9",
+		"bun-plugin-tailwind": "^0.1.2",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
 		"typescript": "^5.9.2"
