@@ -1,4 +1,4 @@
-import tailwindcss from "bun-plugin-tailwind";
+import tailwindcss from "@bunup/plugin-tailwindcss";
 
 const copyHtmlPlugin: Bun.BunPlugin = {
 	name: "copy-html",
@@ -14,5 +14,10 @@ await Bun.build({
 	outdir: "dist/chat",
 	format: "esm",
 	minify: true,
-	plugins: [tailwindcss, copyHtmlPlugin],
+	plugins: [
+		tailwindcss({
+			preflight: true,
+		}),
+		copyHtmlPlugin,
+	],
 });

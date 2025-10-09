@@ -10,6 +10,7 @@
 		"build": "bun build:sdk && bun build:static",
 		"build:sdk": "bunup",
 		"build:static": "bun run --filter './static' build",
+		"preview:chat": "bun run build && bun run static/dist/chat/index.html",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write ."
 	},
