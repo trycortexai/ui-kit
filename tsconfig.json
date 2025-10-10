@@ -9,6 +9,6 @@
 		"declaration": true,
 		"isolatedDeclarations": true
 	},
-	"include": ["packages/**/src/**/*", "static/**/*"],
+	"include": ["packages/**/src/**/*"],
 	"exclude": ["node_modules", "dist", "bunup.config.ts"]
 }

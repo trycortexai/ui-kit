@@ -6,14 +6,22 @@
 		"build:static": "bun run --cwd static build",
 		"preview:chat": "bun dist/chat/index.html --watch",
 		"lint": "biome check .",
-		"lint:fix": "biome check --write ."
+		"lint:fix": "biome check --write .",
+		"tsc": "tsc --noEmit",
+		"release": "bumpp -r --commit --push --tag",
+		"prepare": "bun simple-git-hooks"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.5",
 		"@bunup/plugin-tailwindcss": "^0.14.20",
 		"@types/bun": "^1.2.23",
+		"bumpp": "^10.3.1",
 		"bunup": "^0.14.20",
+		"simple-git-hooks": "^2.13.1",
 		"typescript": "^5.9.3"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "bun run lint && bun run tsc"
 	},
 	"workspaces": [
 		"static",
