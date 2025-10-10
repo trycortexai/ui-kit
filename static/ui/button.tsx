@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { PropsWithChildren } from "react";
-import { cn } from "../utils/styles";
+import { cn } from "./cn";
 
 const buttonVariants = cva(
 	[

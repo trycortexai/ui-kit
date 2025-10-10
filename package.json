@@ -1,16 +1,10 @@
 {
-	"name": "ui-kit",
-	"version": "0.1.0",
-	"description": "The official cortex UI kit",
-	"license": "MIT",
-	"files": [
-		"dist"
-	],
+	"name": "ui-kit-monorepo",
 	"scripts": {
 		"build": "bun build:sdk && bun build:static",
 		"build:sdk": "bunup",
-		"build:static": "bun run --filter './static' build",
-		"preview:chat": "bun run build && bun run static/dist/chat/index.html",
+		"build:static": "bun build.ts",
+		"preview:chat": "bun dist/chat/index.html",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write ."
 	},
@@ -21,27 +15,8 @@
 		"bunup": "^0.14.20",
 		"typescript": "^5.9.3"
 	},
-	"peerDependencies": {
-		"typescript": ">=4.5.0"
-	},
-	"peerDependenciesMeta": {
-		"typescript": {
-			"optional": true
-		}
-	},
-	"type": "module",
-	"exports": {
-		".": {
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			}
-		},
-		"./package.json": "./package.json"
-	},
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
 	"workspaces": [
-		"static"
+		"static",
+		"packages/*"
 	]
 }

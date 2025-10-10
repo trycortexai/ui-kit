@@ -1,11 +1,7 @@
 {
 	"name": "static",
 	"type": "module",
-	"scripts": {
-		"build": "bun build.ts"
-	},
 	"devDependencies": {
-		"@base-ui-components/react": "^1.0.0-beta.4",
 		"@bunup/plugin-tailwindcss": "^0.14.20",
 		"@types/bun": "^1.2.20",
 		"@types/react": "^19.1.10",
