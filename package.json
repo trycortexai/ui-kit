@@ -5,8 +5,8 @@
 		"build:sdks": "bunup",
 		"build:static": "bun run --cwd static build",
 		"preview:chat": "bun dist/chat/index.html --watch",
-		"lint": "biome check .",
-		"lint:fix": "biome check --write .",
+		"lint": "biome check",
+		"format": "biome format --write",
 		"tsc": "tsc --noEmit",
 		"release": "bumpp -r --commit --push --tag",
 		"prepare": "bun simple-git-hooks"
