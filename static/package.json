@@ -1,6 +1,12 @@
 {
-	"name": "static",
+	"name": "@cortex-ai/static",
 	"type": "module",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "bun build.ts"
+	},
 	"devDependencies": {
 		"@bunup/plugin-tailwindcss": "^0.14.20",
 		"@heroicons/react": "^2.2.0",
