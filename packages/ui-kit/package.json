@@ -1,6 +1,6 @@
 {
 	"name": "@cortex-ai/ui-kit",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "The official cortex UI kit",
 	"license": "MIT",
 	"files": [
