@@ -1,6 +1,6 @@
 import tailwindcss from "@bunup/plugin-tailwindcss";
 
-await Bun.$`rm -rf dist`;
+await Bun.$`rm -rf dist/**`;
 await Bun.$`mkdir -p dist/chat`;
 
 const copyHtmlPlugin: Bun.BunPlugin = {

@@ -1,8 +1,8 @@
 {
 	"name": "ui-kit-monorepo",
 	"scripts": {
-		"build": "bun build:sdk && bun build:static",
-		"build:sdk": "bunup",
+		"build": "bun build:sdks && bun build:static",
+		"build:sdks": "bunup",
 		"build:static": "bun build.ts",
 		"preview:chat": "bun dist/chat/index.html",
 		"lint": "biome check .",
