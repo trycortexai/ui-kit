@@ -3,6 +3,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@bunup/plugin-tailwindcss": "^0.14.20",
+		"@heroicons/react": "^2.2.0",
 		"@types/bun": "^1.2.20",
 		"@types/react": "^19.1.10",
 		"@types/react-dom": "^19.1.9",
