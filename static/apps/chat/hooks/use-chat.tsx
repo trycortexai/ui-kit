@@ -1,4 +1,7 @@
-import { CortexChatConfig, parseConfigFromHash } from "@cortex-ai/ui-helpers";
+import {
+	type CortexChatConfig,
+	parseConfigFromHash,
+} from "@cortex-ai/ui-helpers";
 import {
 	createContext,
 	type PropsWithChildren,
