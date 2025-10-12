@@ -1,7 +1,7 @@
 {
-	"name": "@cortex-ai/ui-kit",
+	"name": "@cortex-ai/ui-helpers",
 	"version": "0.1.5",
-	"description": "The official cortex UI kit",
+	"description": "Shared types and helpers for Cortex UI components",
 	"license": "MIT",
 	"files": [
 		"dist"
@@ -9,9 +9,6 @@
 	"type": "module",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"dependencies": {
-		"@cortex-ai/ui-helpers": "workspace:*"
-	},
 	"exports": {
 		".": {
 			"import": {

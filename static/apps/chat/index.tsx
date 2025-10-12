@@ -1,26 +1,54 @@
 import "../../styles/index.css";
 
+import { type CortexChatConfig, decodeObject } from "@cortex-ai/ui-helpers";
 import ReactDOM from "react-dom/client";
-import Composer from "./components/composer/composer";
-import Header from "./components/header/header";
-import History from "./components/history/history";
-import Messages from "./components/messages/messages";
+import ChatInterface from "./chat-interface";
 import { ChatProvider } from "./hooks/use-chat";
 
 function Chat(): React.ReactNode {
 	return (
 		<ChatProvider>
-			<div className="w-full h-screen bg-neutral-50 dark:bg-neutral-900 flex flex-col">
-				<History />
-				<div className="flex-1 flex flex-col min-h-0">
-					<Header />
-					<Messages />
-					<Composer />
-				</div>
-			</div>
+			<ChatInterface />
 		</ChatProvider>
 	);
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
-root.render(<Chat />);
+const elem = document.getElementById("root");
+
+if (elem) {
+	const root = ReactDOM.createRoot(elem);
+	root.render(<Chat />);
+}
+
+function applyConfigFromHash() {
+	const hash = window.location.hash.substring(1);
+
+	if (hash) {
+		try {
+			const config = decodeObject<CortexChatConfig>(hash);
+			applyConfiguration(config);
+		} catch (error) {
+			console.warn("Failed to parse configuration:", error);
+		}
+	}
+}
+
+function applyConfiguration(config: CortexChatConfig) {
+	const html = document.documentElement;
+
+	if (config.colorScheme) {
+		html.classList.add(config.colorScheme);
+	}
+
+	if (config.accentColor) {
+		html.classList.add(`accent-${config.accentColor}`);
+	}
+
+	if (config.neutralColor) {
+		html.classList.add(`neutral-${config.neutralColor}`);
+	}
+
+	window.CHAT_CONFIG = config;
+}
+
+document.addEventListener("DOMContentLoaded", applyConfigFromHash);

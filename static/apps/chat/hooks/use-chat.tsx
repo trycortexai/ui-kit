@@ -2,6 +2,7 @@ import {
 	createContext,
 	type PropsWithChildren,
 	useContext,
+	useEffect,
 	useState,
 } from "react";
 
@@ -68,6 +69,13 @@ export function ChatProvider({ children }: PropsWithChildren) {
 		string | null
 	>(null);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+	const [clientSecret, setClientSecret] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setClientSecret(window.CHAT_CONFIG.clientSecret);
+		}
+	}, []);
 
 	const greeting = "Hello! How can I help you today?";
 	const suggestedMessages = [
@@ -75,6 +83,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 		"Help me debug my code",
 		"What's new in JavaScript?",
 		"Best practices for TypeScript",
+		clientSecret || "",
 	];
 
 	const currentConversation = conversations.find(
