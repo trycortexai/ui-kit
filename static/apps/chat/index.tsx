@@ -2,7 +2,10 @@
 
 import "../../styles/index.css";
 
-import { type CortexChatConfig, decodeObject } from "@cortex-ai/ui-helpers";
+import {
+	type CortexChatConfig,
+	parseConfigFromHash,
+} from "@cortex-ai/ui-helpers";
 import ReactDOM from "react-dom/client";
 import ChatInterface from "./chat-interface";
 import { ChatProvider } from "./hooks/use-chat";
@@ -23,15 +26,10 @@ if (elem) {
 }
 
 function applyConfigFromHash() {
-	const hash = window.location.hash.substring(1);
+	const config = parseConfigFromHash<CortexChatConfig>();
 
-	if (hash) {
-		try {
-			const config = decodeObject<CortexChatConfig>(hash);
-			applyConfiguration(config);
-		} catch (error) {
-			console.warn("Failed to parse configuration:", error);
-		}
+	if (config) {
+		applyConfiguration(config);
 	}
 }
 
@@ -49,8 +47,6 @@ function applyConfiguration(config: CortexChatConfig) {
 	if (config.options.neutralColor) {
 		html.classList.add(`neutral-${config.options.neutralColor}`);
 	}
-
-	window.CHAT_CONFIG = config;
 }
 
 document.addEventListener("DOMContentLoaded", applyConfigFromHash);

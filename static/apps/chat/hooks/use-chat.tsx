@@ -1,3 +1,4 @@
+import { CortexChatConfig, parseConfigFromHash } from "@cortex-ai/ui-helpers";
 import {
 	createContext,
 	type PropsWithChildren,
@@ -73,7 +74,10 @@ export function ChatProvider({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			// setClientSecret(window.CHAT_CONFIG.clientSecret);
+			const config = parseConfigFromHash<CortexChatConfig>();
+			if (config) {
+				setClientSecret(config.clientSecret);
+			}
 		}
 	}, []);
 

@@ -19,7 +19,7 @@ export class CortexChat extends HTMLElement {
 	}
 
 	getResolvedOptions(): CortexChatOptions {
-		const colorScheme = this.getAttribute("theme") || "light";
+		const colorScheme = this.getAttribute("color-scheme") || "light";
 		const title = this.getAttribute("title") || "Chat";
 		const accentColor = this.getAttribute("accent-color") || "blue";
 		const neutralColor = this.getAttribute("neutral-color") || "zinc";
@@ -33,10 +33,10 @@ export class CortexChat extends HTMLElement {
 	}
 
 	getIframeUrl() {
-		const clientKey = this.getAttribute("client-key");
+		const clientSecret = this.getAttribute("client-secret");
 
 		const config = {
-			clientKey,
+			clientSecret,
 			options: this.getResolvedOptions(),
 		};
 

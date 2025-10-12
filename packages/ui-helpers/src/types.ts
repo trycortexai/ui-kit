@@ -5,6 +5,7 @@ export interface CortexChatOptions {
 	neutralColor?: string;
 }
 
-export type CortexChatConfig = CortexChatOptions & {
+export type CortexChatConfig = {
 	clientSecret: string;
+	options: CortexChatOptions;
 };

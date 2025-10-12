@@ -5,3 +5,18 @@ export function encodeObject<T>(input: T): string {
 export function decodeObject<T>(input: string): T {
 	return JSON.parse(atob(input));
 }
+
+export function parseConfigFromHash<T>(): T | null {
+	try {
+		const hash = window.location.hash.substring(1);
+
+		if (hash) {
+			return decodeObject<T>(hash);
+		}
+
+		return null;
+	} catch (error) {
+		console.error("Failed to parse configuration:", error);
+		return null;
+	}
+}
