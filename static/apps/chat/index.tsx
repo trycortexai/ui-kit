@@ -25,16 +25,12 @@ if (elem) {
 	root.render(<Chat />);
 }
 
-function applyConfigFromHash() {
+function setGlobalStyleClasses() {
+	const html = document.documentElement;
+
 	const config = parseConfigFromHash<CortexChatConfig>();
 
-	if (config) {
-		applyConfiguration(config);
-	}
-}
-
-function applyConfiguration(config: CortexChatConfig) {
-	const html = document.documentElement;
+	if (!config) return;
 
 	if (config.options.colorScheme) {
 		html.classList.add(config.options.colorScheme);
@@ -49,4 +45,4 @@ function applyConfiguration(config: CortexChatConfig) {
 	}
 }
 
-document.addEventListener("DOMContentLoaded", applyConfigFromHash);
+document.addEventListener("DOMContentLoaded", setGlobalStyleClasses);
