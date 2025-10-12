@@ -1,6 +1,7 @@
 import { type CortexChatOptions, encodeObject } from "@cortex-ai/ui-helpers";
 
 const IFRAME_SRC =
+	process.env.IFRAME_SRC ||
 	"https://unpkg.com/@cortex-ai/static@latest/dist/chat/index.html";
 
 export class CortexChat extends HTMLElement {

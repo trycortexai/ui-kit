@@ -1,3 +1,5 @@
+"use client";
+
 import "../../styles/index.css";
 
 import { type CortexChatConfig, decodeObject } from "@cortex-ai/ui-helpers";
@@ -36,16 +38,16 @@ function applyConfigFromHash() {
 function applyConfiguration(config: CortexChatConfig) {
 	const html = document.documentElement;
 
-	if (config.colorScheme) {
-		html.classList.add(config.colorScheme);
+	if (config.options.colorScheme) {
+		html.classList.add(config.options.colorScheme);
 	}
 
-	if (config.accentColor) {
-		html.classList.add(`accent-${config.accentColor}`);
+	if (config.options.accentColor) {
+		html.classList.add(`accent-${config.options.accentColor}`);
 	}
 
-	if (config.neutralColor) {
-		html.classList.add(`neutral-${config.neutralColor}`);
+	if (config.options.neutralColor) {
+		html.classList.add(`neutral-${config.options.neutralColor}`);
 	}
 
 	window.CHAT_CONFIG = config;

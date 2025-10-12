@@ -73,7 +73,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			setClientSecret(window.CHAT_CONFIG.clientSecret);
+			// setClientSecret(window.CHAT_CONFIG.clientSecret);
 		}
 	}, []);
 
