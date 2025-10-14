@@ -17,7 +17,7 @@
       "name": "@cortex-ai/ui-helpers",
       "version": "0.1.8",
       "dependencies": {
-        "@cortex-ai/sdk": "^0.6.6",
+        "@cortex-ai/sdk": "^0.7.0",
       },
       "peerDependencies": {
         "typescript": ">=4.5.0",
@@ -93,7 +93,7 @@
 
     "@bunup/shared": ["@bunup/shared@0.14.14", "", { "peerDependencies": { "typescript": ">=4.5.0" }, "optionalPeers": ["typescript"] }, "sha512-/WeE+OQlFtGQA8hBBAu0GT1WCyhCW1j3+dYaxcZ6ud+avwiiNlNGsUugLBFIYktXCnEQg+lBkseRrCn3ORb1nw=="],
 
-    "@cortex-ai/sdk": ["@cortex-ai/sdk@0.6.6", "", { "dependencies": { "eventsource-parser": "^3.0.1" } }, "sha512-+5HvPRfw+Hr9FWtzmpFemOllpTiTyJBz7cjsA7sRPjyTF7ikubNp7jyTRkja4e28x5vzsKOSALoC4rd5ioYwdw=="],
+    "@cortex-ai/sdk": ["@cortex-ai/sdk@0.7.0", "", { "dependencies": { "eventsource-parser": "^3.0.1" } }, "sha512-hx9cZEaIOt8YEFqSYqA9dD0hQdrywwxtQGOaLXiICfskMygnIngwpPyaMSA9IZx4x4sUGeUSc7ZgcX6DK28JOA=="],
 
     "@cortex-ai/static": ["@cortex-ai/static@workspace:static"],
 
