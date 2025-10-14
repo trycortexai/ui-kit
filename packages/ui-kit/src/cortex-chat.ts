@@ -51,6 +51,18 @@ export class CortexChat extends HTMLElement {
 		}
 
 		this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 500px;
+        }
+        iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+      </style>
       <iframe src="${iframeUrl}"></iframe>
     `;
 	}
