@@ -5,7 +5,7 @@ import {
 import {
 	createContext,
 	type PropsWithChildren,
-	useContext,
+	use,
 	useEffect,
 	useState,
 } from "react";
@@ -174,7 +174,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 }
 
 export function useChat() {
-	const context = useContext(ChatContext);
+	const context = use(ChatContext);
 	if (!context) {
 		throw new Error("useChat must be used within ChatProvider");
 	}
