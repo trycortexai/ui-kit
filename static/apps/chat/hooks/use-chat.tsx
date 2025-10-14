@@ -74,14 +74,14 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	>(null);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const [clientSecret, setClientSecret] = useState<string | null>(null);
-	const [workflowId, setWorkflowId] = useState<string | null>(null);
+	const [agentId, setAgentId] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const config = parseConfigFromHash<CortexChatConfig>();
 			if (config) {
 				setClientSecret(config.clientSecret);
-				setWorkflowId(config.workflowId || null);
+				setAgentId(config.agentId || null);
 			}
 		}
 	}, []);

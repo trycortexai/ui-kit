@@ -34,11 +34,11 @@ export class CortexChat extends HTMLElement {
 
 	getIframeUrl() {
 		const clientSecret = this.getAttribute("client-secret");
-		const workflowId = this.getAttribute("workflow-id");
+		const agentId = this.getAttribute("agent-id");
 
 		const config = {
 			clientSecret,
-			workflowId,
+			agentId,
 			options: this.getResolvedOptions(),
 		};
 
