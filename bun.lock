@@ -15,7 +15,10 @@
     },
     "packages/ui-helpers": {
       "name": "@cortex-ai/ui-helpers",
-      "version": "0.1.5",
+      "version": "0.1.8",
+      "dependencies": {
+        "@cortex-ai/sdk": "^0.6.6",
+      },
       "peerDependencies": {
         "typescript": ">=4.5.0",
       },
@@ -25,8 +28,8 @@
     },
     "packages/ui-kit": {
       "name": "@cortex-ai/ui-kit",
-      "version": "0.1.5",
-      "devDependencies": {
+      "version": "0.1.8",
+      "dependencies": {
         "@cortex-ai/ui-helpers": "workspace:*",
       },
       "peerDependencies": {
@@ -38,7 +41,7 @@
     },
     "static": {
       "name": "@cortex-ai/static",
-      "version": "0.1.5",
+      "version": "0.1.8",
       "devDependencies": {
         "@bunup/plugin-tailwindcss": "^0.14.20",
         "@cortex-ai/ui-helpers": "workspace:*",
@@ -89,6 +92,8 @@
     "@bunup/plugin-tailwindcss": ["@bunup/plugin-tailwindcss@0.14.20", "", { "dependencies": { "@bunup/shared": "0.14.14", "@tailwindcss/postcss": "^4.1.14", "lightningcss": "^1.30.2", "postcss": "^8.5.6" }, "peerDependencies": { "typescript": "latest" }, "optionalPeers": ["typescript"] }, "sha512-goIr1sCK8oL+XPGAPuMtP7q90ZdkBers5+MBGaH7DKj9NGCx6B5DfntpQ3mwv+xtTmdF2sCT+9FatvLjqai2zg=="],
 
     "@bunup/shared": ["@bunup/shared@0.14.14", "", { "peerDependencies": { "typescript": ">=4.5.0" }, "optionalPeers": ["typescript"] }, "sha512-/WeE+OQlFtGQA8hBBAu0GT1WCyhCW1j3+dYaxcZ6ud+avwiiNlNGsUugLBFIYktXCnEQg+lBkseRrCn3ORb1nw=="],
+
+    "@cortex-ai/sdk": ["@cortex-ai/sdk@0.6.6", "", { "dependencies": { "eventsource-parser": "^3.0.1" } }, "sha512-+5HvPRfw+Hr9FWtzmpFemOllpTiTyJBz7cjsA7sRPjyTF7ikubNp7jyTRkja4e28x5vzsKOSALoC4rd5ioYwdw=="],
 
     "@cortex-ai/static": ["@cortex-ai/static@workspace:static"],
 
@@ -277,6 +282,8 @@
     "enhanced-resolve": ["enhanced-resolve@5.18.3", "", { "dependencies": { "graceful-fs": "^4.2.4", "tapable": "^2.2.0" } }, "sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww=="],
 
     "escalade": ["escalade@3.2.0", "", {}, "sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA=="],
+
+    "eventsource-parser": ["eventsource-parser@3.0.6", "", {}, "sha512-Vo1ab+QXPzZ4tCa8SwIHJFaSzy4R6SHf7BY79rFBDf0idraZWAkYrDjDj8uWaSm3S2TK+hJ7/t1CEmZ7jXw+pg=="],
 
     "exsolve": ["exsolve@1.0.7", "", {}, "sha512-VO5fQUzZtI6C+vx4w/4BWJpg3s/5l+6pRQEHzFRM8WFi4XffSP1Z+4qi7GbjWbvRQEbdIco5mIMq+zX4rPuLrw=="],
 

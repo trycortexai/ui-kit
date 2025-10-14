@@ -25,5 +25,8 @@
 		"typescript": {
 			"optional": true
 		}
+	},
+	"dependencies": {
+		"@cortex-ai/sdk": "^0.6.6"
 	}
 }

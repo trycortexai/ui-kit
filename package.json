@@ -1,11 +1,12 @@
 {
 	"name": "ui-kit-monorepo",
 	"scripts": {
+		"build": "bun build:sdks && bun build:static",
 		"build:sdks": "bunup",
 		"build:static": "bun run --cwd static build",
-		"build": "bun build:sdks && bun build:static",
-		"build:dev": "bun build:sdks --env inline && bun build:static",
-		"test:chat": "IFRAME_SRC=http://localhost:5000 bun run build:dev && bun --port 5000 static/dist/chat/index.html & sleep 1 && bun test/chat.html",
+		"dev:sdks": "bunup --watch",
+		"test:build": "bun build:sdks --env inline && bun build:static",
+		"test:chat": "IFRAME_SRC=http://localhost:5000 bun run test:build && bun --port 5000 static/dist/chat/index.html & sleep 1 && bun test/chat.html",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"tsc": "tsc --noEmit",
