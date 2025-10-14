@@ -7,5 +7,6 @@ export interface CortexChatOptions {
 
 export type CortexChatConfig = {
 	clientSecret: string;
+	workflowId?: string;
 	options: CortexChatOptions;
 };

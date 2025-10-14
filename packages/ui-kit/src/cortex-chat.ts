@@ -34,9 +34,11 @@ export class CortexChat extends HTMLElement {
 
 	getIframeUrl() {
 		const clientSecret = this.getAttribute("client-secret");
+		const workflowId = this.getAttribute("workflow-id");
 
 		const config = {
 			clientSecret,
+			workflowId,
 			options: this.getResolvedOptions(),
 		};
 
