@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { cors } from "hono/cors";
 import { createCortexService } from "../services/cortex.service";
 
 export interface ChatMessage {
@@ -14,14 +13,6 @@ export interface ChatRequest {
 }
 
 const chatRouter = new Hono();
-
-chatRouter.use(
-	"/*",
-	cors({
-		origin: ["http://localhost:5000", "https://api.ui-kit.com"],
-		credentials: true,
-	}),
-);
 
 chatRouter.post("/", async (c) => {
 	try {

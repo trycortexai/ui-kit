@@ -16,7 +16,6 @@ await Bun.build({
 	entrypoints: ["apps/chat/index.tsx"],
 	outdir: "dist/chat",
 	format: "esm",
-	minify: true,
 	plugins: [
 		tailwindcss({
 			preflight: true,
