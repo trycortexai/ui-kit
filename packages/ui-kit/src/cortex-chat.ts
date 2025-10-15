@@ -1,4 +1,5 @@
-import { type CortexChatOptions, encodeObject } from "@cortex-ai/ui-helpers";
+import type { CortexChatOptions } from "@cortex-ai/ui-kit-shared/chat";
+import { encodeObject } from "@cortex-ai/ui-kit-shared/common";
 
 const IFRAME_SRC =
 	process.env.IFRAME_SRC ||

@@ -1,13 +1,6 @@
 {
 	"name": "@cortex-ai/static",
 	"version": "0.1.8",
-	"type": "module",
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"build": "bun build.ts"
-	},
 	"devDependencies": {
 		"@bunup/plugin-tailwindcss": "^0.14.20",
 		"@heroicons/react": "^2.2.0",
@@ -19,10 +12,16 @@
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
 		"tailwind-merge": "^3.3.1",
-		"typescript": "^5.9.2",
-		"@cortex-ai/ui-helpers": "workspace:*"
+		"typescript": "^5.9.2"
 	},
 	"dependencies": {
-		"@cortex-ai/sdk": "^0.7.4"
-	}
+		"@cortex-ai/ui-kit-shared": "workspace:*"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "bun build.ts"
+	},
+	"type": "module"
 }

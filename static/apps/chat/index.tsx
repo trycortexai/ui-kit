@@ -2,10 +2,8 @@
 
 import "../../styles/index.css";
 
-import {
-	type CortexChatConfig,
-	parseConfigFromHash,
-} from "@cortex-ai/ui-helpers";
+import type { CortexChatConfig } from "@cortex-ai/ui-kit-shared/chat";
+import { parseConfigFromHash } from "@cortex-ai/ui-kit-shared/common";
 import ReactDOM from "react-dom/client";
 import ChatInterface from "./chat-interface";
 import { ChatProvider } from "./hooks/use-chat";

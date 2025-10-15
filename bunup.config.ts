@@ -3,8 +3,17 @@ import { defineWorkspace } from "bunup";
 export default defineWorkspace(
 	[
 		{
-			name: "ui-helpers",
-			root: "packages/ui-helpers",
+			name: "ui-kit-shared",
+			root: "packages/ui-kit-shared",
+			config: {
+				entry: [
+					"src/index.ts",
+					"src/chat.ts",
+					"src/cortex.ts",
+					"src/common.ts",
+				],
+				splitting: false,
+			},
 		},
 		{
 			name: "ui-kit",

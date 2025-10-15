@@ -1,0 +1,50 @@
+{
+	"name": "@cortex-ai/ui-kit-shared",
+	"description": "Shared types and helpers for Cortex UI components",
+	"version": "0.1.8",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./chat": {
+			"import": {
+				"types": "./dist/chat.d.ts",
+				"default": "./dist/chat.js"
+			}
+		},
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./cortex": {
+			"import": {
+				"types": "./dist/cortex.d.ts",
+				"default": "./dist/cortex.js"
+			}
+		},
+		"./common": {
+			"import": {
+				"types": "./dist/common.d.ts",
+				"default": "./dist/common.js"
+			}
+		},
+		"./package.json": "./package.json"
+	},
+	"license": "MIT",
+	"peerDependencies": {
+		"typescript": ">=4.5.0"
+	},
+	"peerDependenciesMeta": {
+		"typescript": {
+			"optional": true
+		}
+	},
+	"dependencies": {
+		"@cortex-ai/sdk": "^0.7.4"
+	}
+}

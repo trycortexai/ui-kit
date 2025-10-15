@@ -10,7 +10,7 @@
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"dependencies": {
-		"@cortex-ai/ui-helpers": "workspace:*"
+		"@cortex-ai/ui-kit-shared": "workspace:*"
 	},
 	"exports": {
 		".": {

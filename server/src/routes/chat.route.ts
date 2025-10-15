@@ -33,7 +33,6 @@ chatRouter.post("/", async (c) => {
 
 		const cortexService = createCortexService({
 			apiKey: clientSecret,
-			baseUrl: "https://api.withcortex.ai",
 		});
 
 		const response = await cortexService.runWorkflowStream({

@@ -1,8 +1,10 @@
 import { readStream } from "@cortex-ai/sdk";
 import {
+	CHAT_API_URL,
 	type CortexChatConfig,
-	parseConfigFromHash,
-} from "@cortex-ai/ui-helpers";
+} from "@cortex-ai/ui-kit-shared/chat";
+import { parseConfigFromHash } from "@cortex-ai/ui-kit-shared/common";
+import { parseMessageFromStepOutput } from "@cortex-ai/ui-kit-shared/cortex";
 import {
 	createContext,
 	type PropsWithChildren,
@@ -11,7 +13,6 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { parseMessageFromStepOutput } from "../utils/cortex-helpers";
 import {
 	type DBConversation,
 	type DBMessage,
@@ -45,8 +46,6 @@ type ChatContextType = {
 };
 
 const ChatContext = createContext<ChatContextType | null>(null);
-
-const API_BASE_URL = "http://localhost:3001";
 
 export function ChatProvider({ children }: PropsWithChildren) {
 	const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -118,7 +117,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				);
 			}
 
-			const response = await fetch(`${API_BASE_URL}/chat`, {
+			const response = await fetch(CHAT_API_URL, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -136,7 +135,6 @@ export function ChatProvider({ children }: PropsWithChildren) {
 			}
 
 			await readStream("step", response, (step: any) => {
-				console.log(step);
 				if (step?.key === "result") {
 					onMessageUpdate(parseMessageFromStepOutput(step));
 				}

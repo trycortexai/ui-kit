@@ -1,9 +1,8 @@
 import type { Schema } from "@cortex-ai/sdk";
-import { Cortex } from "@cortex-ai/sdk";
+import { getCortexInstance } from "@cortex-ai/ui-kit-shared/cortex";
 
 export interface CortexConfig {
 	apiKey: string;
-	baseUrl?: string;
 }
 
 export interface WorkflowRunOptions {
@@ -18,13 +17,10 @@ export interface StepRunOptions {
 }
 
 export class CortexService {
-	private client: Cortex;
+	private client: ReturnType<typeof getCortexInstance>;
 
 	constructor(config: CortexConfig) {
-		this.client = new Cortex({
-			apiKey: config.apiKey,
-			baseUrl: config.baseUrl,
-		});
+		this.client = getCortexInstance(config.apiKey);
 	}
 
 	async runWorkflowStream(options: WorkflowRunOptions): Promise<Response> {
@@ -66,7 +62,7 @@ export class CortexService {
 		return await this.client.apps.runs.step.create({ step });
 	}
 
-	getClient(): Cortex {
+	getClient(): ReturnType<typeof getCortexInstance> {
 		return this.client;
 	}
 }
