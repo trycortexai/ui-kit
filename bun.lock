@@ -52,6 +52,9 @@
     "static": {
       "name": "@cortex-ai/static",
       "version": "0.1.8",
+      "dependencies": {
+        "@cortex-ai/sdk": "^0.7.4",
+      },
       "devDependencies": {
         "@bunup/plugin-tailwindcss": "^0.14.20",
         "@cortex-ai/ui-helpers": "workspace:*",
@@ -103,7 +106,7 @@
 
     "@bunup/shared": ["@bunup/shared@0.14.14", "", { "peerDependencies": { "typescript": ">=4.5.0" }, "optionalPeers": ["typescript"] }, "sha512-/WeE+OQlFtGQA8hBBAu0GT1WCyhCW1j3+dYaxcZ6ud+avwiiNlNGsUugLBFIYktXCnEQg+lBkseRrCn3ORb1nw=="],
 
-    "@cortex-ai/sdk": ["@cortex-ai/sdk@0.7.1", "", { "dependencies": { "eventsource-parser": "^3.0.1" } }, "sha512-EjnZEqSpvNmRfatk+1wl9lLU7yr/aPm+/RbCwcOHPvbdydKGdAmv7NmQwoPS83XPWIap/xiPDjr/6iVYIIWWnA=="],
+    "@cortex-ai/sdk": ["@cortex-ai/sdk@0.7.4", "", { "dependencies": { "eventsource-parser": "^3.0.1" } }, "sha512-MYutj1sd5QB4Mo9sWO5/+Zc3n5xsyy9MPh2tRzIw0AEi0Dc2Q9NXtUJW09OkNEpsQpLWuobXtOI+StVRnR568g=="],
 
     "@cortex-ai/static": ["@cortex-ai/static@workspace:static"],
 
@@ -418,6 +421,8 @@
     "yaml": ["yaml@2.8.1", "", { "bin": { "yaml": "bin.mjs" } }, "sha512-lcYcMxX2PO9XMGvAJkJ3OsNMw+/7FKes7/hgerGUYWIoWu5j/+YQqcZr5JnPZWzOsEBgMbSbiSTn/dv/69Mkpw=="],
 
     "zlye": ["zlye@0.4.4", "", { "dependencies": { "picocolors": "^1.1.1" }, "peerDependencies": { "typescript": ">=4.5.0" }, "optionalPeers": ["typescript"] }, "sha512-fwpeC841X3ElOLYRMKXbwX29pitNrsm6nRNvEhDMrRXDl3BhR2i03Bkr0GNrpyYgZJuEzUsBylXAYzgGPXXOCQ=="],
+
+    "@cortex-ai/ui-kit-server/@cortex-ai/sdk": ["@cortex-ai/sdk@0.7.1", "", { "dependencies": { "eventsource-parser": "^3.0.1" } }, "sha512-EjnZEqSpvNmRfatk+1wl9lLU7yr/aPm+/RbCwcOHPvbdydKGdAmv7NmQwoPS83XPWIap/xiPDjr/6iVYIIWWnA=="],
 
     "@oxc-resolver/binding-wasm32-wasi/@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@0.2.12", "", { "dependencies": { "@emnapi/core": "^1.4.3", "@emnapi/runtime": "^1.4.3", "@tybys/wasm-util": "^0.10.0" } }, "sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ=="],
 

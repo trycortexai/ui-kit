@@ -1,3 +1,4 @@
+import { readStream } from "@cortex-ai/sdk";
 import {
 	type CortexChatConfig,
 	parseConfigFromHash,
@@ -10,6 +11,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
+import { parseMessageFromStepOutput } from "../utils/cortex-helpers";
 import {
 	type DBConversation,
 	type DBMessage,
@@ -109,7 +111,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	const currentMessages = currentConversation?.messages || [];
 
 	const streamChatResponse = useCallback(
-		async (messages: Message[]): Promise<string> => {
+		async (messages: Message[], onMessageUpdate: (content: string) => void) => {
 			if (!clientSecret || !workflowId) {
 				throw new Error(
 					"Configuration missing: clientSecret and workflowId are required",
@@ -133,41 +135,12 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				throw new Error(error.error || "Failed to stream response");
 			}
 
-			if (!response.body) {
-				throw new Error("No response body");
-			}
-
-			const reader = response.body.getReader();
-			const decoder = new TextDecoder();
-			let assistantMessage = "";
-
-			try {
-				while (true) {
-					const { done, value } = await reader.read();
-					if (done) break;
-
-					const chunk = decoder.decode(value, { stream: true });
-					const lines = chunk.split("\n");
-
-					for (const line of lines) {
-						if (line.startsWith("data: ")) {
-							try {
-								const data = JSON.parse(line.slice(6));
-								if (data.output?.MODEL) {
-									const modelOutput = data.output.MODEL.output;
-									if (modelOutput?.message) {
-										assistantMessage = modelOutput.message;
-									}
-								}
-							} catch {}
-						}
-					}
+			await readStream("step", response, (step: any) => {
+				console.log(step);
+				if (step?.key === "result") {
+					onMessageUpdate(parseMessageFromStepOutput(step));
 				}
-			} finally {
-				reader.releaseLock();
-			}
-
-			return assistantMessage || "Sorry, I couldn't generate a response.";
+			});
 		},
 		[clientSecret, workflowId],
 	);
@@ -233,7 +206,21 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				];
 				updateConversationMessages(conversationId, updatedMessages);
 
-				const assistantContent = await streamChatResponse(updatedMessages);
+				const messagesWithPlaceholder = [
+					...updatedMessages,
+					{ role: "assistant" as const, content: "" },
+				];
+				updateConversationMessages(conversationId, messagesWithPlaceholder);
+
+				let assistantContent = "";
+
+				await streamChatResponse(updatedMessages, (streamedContent: string) => {
+					assistantContent = streamedContent;
+					updateConversationMessages(conversationId, [
+						...updatedMessages,
+						{ role: "assistant" as const, content: streamedContent },
+					]);
+				});
 
 				const assistantMessage: DBMessage = {
 					id: `${conversationId}-${Date.now()}-assistant`,
@@ -242,6 +229,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 					content: assistantContent,
 					timestamp: new Date(),
 				};
+
 				await db.saveMessage(assistantMessage);
 
 				updateConversationMessages(conversationId, [
