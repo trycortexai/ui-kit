@@ -16,8 +16,8 @@ import {
 import {
 	type DBConversation,
 	type DBMessage,
-	useIndexedDB,
-} from "./use-indexed-db";
+	useChatIndexedDB,
+} from "./use-chat-indexed-db";
 
 export type Message = {
 	role: "user" | "assistant";
@@ -57,7 +57,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	const [clientSecret, setClientSecret] = useState<string | null>(null);
 	const [workflowId, setWorkflowId] = useState<string | null>(null);
 
-	const db = useIndexedDB();
+	const db = useChatIndexedDB();
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {

@@ -1,215 +1,230 @@
 import { useCallback, useEffect, useState } from "react";
 
-const DB_NAME = "cortex-chat-db";
-const DB_VERSION = 2;
-const CONVERSATIONS_STORE = "conversations";
-const MESSAGES_STORE = "messages";
-
-export interface DBConversation {
-	id: string;
-	title: string;
-	createdAt: Date;
-	updatedAt: Date;
+export interface IndexedDBConfig {
+	dbName: string;
+	version: number;
+	stores: {
+		name: string;
+		keyPath: string;
+		indexes?: {
+			name: string;
+			keyPath: string | string[];
+			unique?: boolean;
+		}[];
+	}[];
 }
 
-export interface DBMessage {
-	id: string;
-	conversationId: string;
-	role: "user" | "assistant";
-	content: string;
-	timestamp: Date;
-}
-
-const initDB = (): Promise<IDBDatabase> => {
-	return new Promise((resolve, reject) => {
-		const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-		request.onerror = () => {
-			reject(request.error);
-		};
-
-		request.onsuccess = () => {
-			const db = request.result;
-
-			if (
-				!db.objectStoreNames.contains(CONVERSATIONS_STORE) ||
-				!db.objectStoreNames.contains(MESSAGES_STORE)
-			) {
-				db.close();
-				indexedDB.deleteDatabase(DB_NAME);
-				setTimeout(() => {
-					initDB().then(resolve).catch(reject);
-				}, 100);
-				return;
-			}
-
-			resolve(db);
-		};
-
-		request.onupgradeneeded = (event) => {
-			const db = (event.target as IDBOpenDBRequest).result;
-
-			if (db.objectStoreNames.contains(CONVERSATIONS_STORE)) {
-				db.deleteObjectStore(CONVERSATIONS_STORE);
-			}
-			if (db.objectStoreNames.contains(MESSAGES_STORE)) {
-				db.deleteObjectStore(MESSAGES_STORE);
-			}
-
-			const conversationsStore = db.createObjectStore(CONVERSATIONS_STORE, {
-				keyPath: "id",
-			});
-			conversationsStore.createIndex("createdAt", "createdAt", {
-				unique: false,
-			});
-
-			const messagesStore = db.createObjectStore(MESSAGES_STORE, {
-				keyPath: "id",
-			});
-			messagesStore.createIndex("conversationId", "conversationId", {
-				unique: false,
-			});
-			messagesStore.createIndex("timestamp", "timestamp", {
-				unique: false,
-			});
-		};
-	});
-};
-
-const performTransaction = async <T,>(
-	storeName: string,
-	mode: IDBTransactionMode,
-	callback: (store: IDBObjectStore) => IDBRequest<T>,
-): Promise<T> => {
-	const db = await initDB();
-	return new Promise((resolve, reject) => {
-		try {
-			const transaction = db.transaction(storeName, mode);
-			const store = transaction.objectStore(storeName);
-			const request = callback(store);
-
-			request.onsuccess = () => resolve(request.result);
-			request.onerror = () => reject(request.error);
-			transaction.onerror = () => reject(transaction.error);
-		} catch (error) {
-			reject(error);
-		}
-	});
-};
-
-export function useIndexedDB() {
+export function useIndexedDB(config: IndexedDBConfig) {
 	const [isReady, setIsReady] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
+	const [db, setDb] = useState<IDBDatabase | null>(null);
+
+	const initDB = useCallback((): Promise<IDBDatabase> => {
+		return new Promise((resolve, reject) => {
+			const request = indexedDB.open(config.dbName, config.version);
+
+			request.onerror = () => {
+				reject(request.error);
+			};
+
+			request.onsuccess = () => {
+				const database = request.result;
+
+				const missingStores = config.stores.some(
+					(store) => !database.objectStoreNames.contains(store.name),
+				);
+
+				if (missingStores) {
+					database.close();
+					indexedDB.deleteDatabase(config.dbName);
+					setTimeout(() => {
+						initDB().then(resolve).catch(reject);
+					}, 100);
+					return;
+				}
+
+				resolve(database);
+			};
+
+			request.onupgradeneeded = (event) => {
+				const database = (event.target as IDBOpenDBRequest).result;
+
+				config.stores.forEach((storeConfig) => {
+					if (database.objectStoreNames.contains(storeConfig.name)) {
+						database.deleteObjectStore(storeConfig.name);
+					}
+
+					const store = database.createObjectStore(storeConfig.name, {
+						keyPath: storeConfig.keyPath,
+					});
+
+					if (storeConfig.indexes) {
+						storeConfig.indexes.forEach((index) => {
+							store.createIndex(index.name, index.keyPath, {
+								unique: index.unique ?? false,
+							});
+						});
+					}
+				});
+			};
+		});
+	}, [config]);
 
 	useEffect(() => {
 		initDB()
-			.then(() => setIsReady(true))
+			.then((database) => {
+				setDb(database);
+				setIsReady(true);
+			})
 			.catch((err) => setError(err));
-	}, []);
 
-	const saveConversation = useCallback(
-		async (conversation: DBConversation): Promise<void> => {
-			try {
-				await performTransaction(CONVERSATIONS_STORE, "readwrite", (store) =>
-					store.put(conversation),
-				);
-			} catch (err) {
-				setError(err as Error);
-				throw err;
-			}
-		},
-		[],
-	);
+		return () => {
+			db?.close();
+		};
+	}, [initDB, db?.close]);
 
-	const getConversation = useCallback(
-		async (id: string): Promise<DBConversation | undefined> => {
-			try {
-				return await performTransaction(
-					CONVERSATIONS_STORE,
-					"readonly",
-					(store) => store.get(id),
-				);
-			} catch (err) {
-				setError(err as Error);
-				throw err;
-			}
-		},
-		[],
-	);
+	const performTransaction = useCallback(
+		async <T,>(
+			storeName: string,
+			mode: IDBTransactionMode,
+			callback: (store: IDBObjectStore) => IDBRequest<T>,
+		): Promise<T> => {
+			const database = db || (await initDB());
+			return new Promise((resolve, reject) => {
+				try {
+					const transaction = database.transaction(storeName, mode);
+					const store = transaction.objectStore(storeName);
+					const request = callback(store);
 
-	const getAllConversations = useCallback(async (): Promise<
-		DBConversation[]
-	> => {
-		try {
-			const conversations = await performTransaction(
-				CONVERSATIONS_STORE,
-				"readonly",
-				(store) => store.getAll(),
-			);
-			return conversations.sort(
-				(a, b) =>
-					new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-			);
-		} catch (err) {
-			setError(err as Error);
-			throw err;
-		}
-	}, []);
-
-	const deleteConversation = useCallback(async (id: string): Promise<void> => {
-		try {
-			await performTransaction(CONVERSATIONS_STORE, "readwrite", (store) =>
-				store.delete(id),
-			);
-
-			const db = await initDB();
-			const transaction = db.transaction(MESSAGES_STORE, "readwrite");
-			const store = transaction.objectStore(MESSAGES_STORE);
-			const index = store.index("conversationId");
-			const request = index.openCursor(IDBKeyRange.only(id));
-
-			request.onsuccess = (event) => {
-				const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result;
-				if (cursor) {
-					cursor.delete();
-					cursor.continue();
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error);
+					transaction.onerror = () => reject(transaction.error);
+				} catch (error) {
+					reject(error);
 				}
-			};
-		} catch (err) {
-			setError(err as Error);
-			throw err;
-		}
-	}, []);
+			});
+		},
+		[db, initDB],
+	);
 
-	const saveMessage = useCallback(async (message: DBMessage): Promise<void> => {
-		try {
-			await performTransaction(MESSAGES_STORE, "readwrite", (store) =>
-				store.put(message),
-			);
-		} catch (err) {
-			setError(err as Error);
-			throw err;
-		}
-	}, []);
-
-	const getMessagesForConversation = useCallback(
-		async (conversationId: string): Promise<DBMessage[]> => {
+	const add = useCallback(
+		async <T,>(storeName: string, item: T): Promise<IDBValidKey> => {
 			try {
-				const db = await initDB();
-				return new Promise((resolve, reject) => {
-					const transaction = db.transaction(MESSAGES_STORE, "readonly");
-					const store = transaction.objectStore(MESSAGES_STORE);
-					const index = store.index("conversationId");
-					const request = index.getAll(conversationId);
+				return await performTransaction(storeName, "readwrite", (store) =>
+					store.add(item),
+				);
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[performTransaction],
+	);
 
-					request.onsuccess = () => {
-						const messages = request.result;
-						messages.sort(
-							(a, b) =>
-								new Date(a.timestamp).getTime() -
-								new Date(b.timestamp).getTime(),
-						);
-						resolve(messages);
+	const put = useCallback(
+		async <T,>(storeName: string, item: T): Promise<IDBValidKey> => {
+			try {
+				return await performTransaction(storeName, "readwrite", (store) =>
+					store.put(item),
+				);
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[performTransaction],
+	);
+
+	const get = useCallback(
+		async <T,>(storeName: string, key: IDBValidKey): Promise<T | undefined> => {
+			try {
+				return await performTransaction(storeName, "readonly", (store) =>
+					store.get(key),
+				);
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[performTransaction],
+	);
+
+	const getAll = useCallback(
+		async <T,>(storeName: string): Promise<T[]> => {
+			try {
+				return await performTransaction(storeName, "readonly", (store) =>
+					store.getAll(),
+				);
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[performTransaction],
+	);
+
+	const getAllByIndex = useCallback(
+		async <T,>(
+			storeName: string,
+			indexName: string,
+			query?: IDBValidKey | IDBKeyRange,
+		): Promise<T[]> => {
+			try {
+				const database = db || (await initDB());
+				return new Promise((resolve, reject) => {
+					const transaction = database.transaction(storeName, "readonly");
+					const store = transaction.objectStore(storeName);
+					const index = store.index(indexName);
+					const request = query ? index.getAll(query) : index.getAll();
+
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error);
+				});
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[db, initDB],
+	);
+
+	const deleteItem = useCallback(
+		async (storeName: string, key: IDBValidKey): Promise<void> => {
+			try {
+				await performTransaction(storeName, "readwrite", (store) =>
+					store.delete(key),
+				);
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[performTransaction],
+	);
+
+	const deleteByIndex = useCallback(
+		async (
+			storeName: string,
+			indexName: string,
+			query: IDBValidKey | IDBKeyRange,
+		): Promise<void> => {
+			try {
+				const database = db || (await initDB());
+				const transaction = database.transaction(storeName, "readwrite");
+				const store = transaction.objectStore(storeName);
+				const index = store.index(indexName);
+				const request = index.openCursor(query);
+
+				return new Promise((resolve, reject) => {
+					request.onsuccess = (event) => {
+						const cursor = (event.target as IDBRequest<IDBCursorWithValue>)
+							.result;
+						if (cursor) {
+							cursor.delete();
+							cursor.continue();
+						} else {
+							resolve();
+						}
 					};
 					request.onerror = () => reject(request.error);
 				});
@@ -218,44 +233,50 @@ export function useIndexedDB() {
 				throw err;
 			}
 		},
-		[],
+		[db, initDB],
 	);
 
-	const deleteMessage = useCallback(async (id: string): Promise<void> => {
-		try {
-			await performTransaction(MESSAGES_STORE, "readwrite", (store) =>
-				store.delete(id),
-			);
-		} catch (err) {
-			setError(err as Error);
-			throw err;
-		}
-	}, []);
+	const clear = useCallback(
+		async (storeName: string): Promise<void> => {
+			try {
+				await performTransaction(storeName, "readwrite", (store) =>
+					store.clear(),
+				);
+			} catch (err) {
+				setError(err as Error);
+				throw err;
+			}
+		},
+		[performTransaction],
+	);
 
-	const clearAllData = useCallback(async (): Promise<void> => {
+	const clearAll = useCallback(async (): Promise<void> => {
 		try {
-			await performTransaction(CONVERSATIONS_STORE, "readwrite", (store) =>
-				store.clear(),
-			);
-			await performTransaction(MESSAGES_STORE, "readwrite", (store) =>
-				store.clear(),
+			await Promise.all(
+				config.stores.map((store) =>
+					performTransaction(store.name, "readwrite", (objectStore) =>
+						objectStore.clear(),
+					),
+				),
 			);
 		} catch (err) {
 			setError(err as Error);
 			throw err;
 		}
-	}, []);
+	}, [config.stores, performTransaction]);
 
 	return {
 		isReady,
 		error,
-		saveConversation,
-		getConversation,
-		getAllConversations,
-		deleteConversation,
-		saveMessage,
-		getMessagesForConversation,
-		deleteMessage,
-		clearAllData,
+		db,
+		add,
+		put,
+		get,
+		getAll,
+		getAllByIndex,
+		deleteItem,
+		deleteByIndex,
+		clear,
+		clearAll,
 	};
 }
