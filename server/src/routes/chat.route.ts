@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { createCortexService } from "../services/cortex.service.js";
+import { createCortexService } from "../services/cortex.service";
 
 export interface ChatMessage {
 	role: "user" | "assistant";
