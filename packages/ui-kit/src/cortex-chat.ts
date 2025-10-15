@@ -24,12 +24,19 @@ export class CortexChat extends HTMLElement {
 		const title = this.getAttribute("title") || "Chat";
 		const accentColor = this.getAttribute("accent-color") || "blue";
 		const neutralColor = this.getAttribute("neutral-color") || "zinc";
+		const greeting = this.getAttribute("greeting") || undefined;
+		const suggestedMessagesAttr = this.getAttribute("suggested-messages");
+		const suggestedMessages = suggestedMessagesAttr
+			? suggestedMessagesAttr.split(",").map((msg) => msg.trim())
+			: undefined;
 
 		return {
 			colorScheme,
 			title,
 			accentColor,
 			neutralColor,
+			greeting,
+			suggestedMessages,
 		};
 	}
 

@@ -56,6 +56,10 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [clientSecret, setClientSecret] = useState<string | null>(null);
 	const [workflowId, setWorkflowId] = useState<string | null>(null);
+	const [greeting, setGreeting] = useState<string>(
+		"Hello! How can I help you today?",
+	);
+	const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
 
 	const db = useChatIndexedDB();
 
@@ -65,6 +69,12 @@ export function ChatProvider({ children }: PropsWithChildren) {
 			if (config) {
 				setClientSecret(config.clientSecret);
 				setWorkflowId(config.agentId || null);
+				if (config.options?.greeting) {
+					setGreeting(config.options.greeting);
+				}
+				if (config.options?.suggestedMessages) {
+					setSuggestedMessages(config.options.suggestedMessages);
+				}
 			}
 		}
 	}, []);
@@ -95,14 +105,6 @@ export function ChatProvider({ children }: PropsWithChildren) {
 
 		loadConversations();
 	}, [db.isReady, db.getAllConversations, db.getMessagesForConversation]);
-
-	const greeting = "Hello! How can I help you today?";
-	const suggestedMessages = [
-		"Explain React hooks",
-		"Help me debug my code",
-		"What's new in JavaScript?",
-		"Best practices for TypeScript",
-	];
 
 	const currentConversation = conversations.find(
 		(c) => c.id === currentConversationId,

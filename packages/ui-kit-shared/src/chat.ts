@@ -5,6 +5,8 @@ export type CortexChatOptions = {
 	title?: string;
 	accentColor?: string;
 	neutralColor?: string;
+	greeting?: string;
+	suggestedMessages?: string[];
 };
 
 export type CortexChatConfig = {
