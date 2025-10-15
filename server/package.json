@@ -1,0 +1,17 @@
+{
+	"name": "@cortex-ai/ui-kit-server",
+	"type": "module",
+	"version": "0.1.0",
+	"scripts": {
+		"dev": "bun src/index.ts"
+	},
+	"dependencies": {
+		"@cortex-ai/sdk": "^0.7.1",
+		"@hono/node-server": "^1.19.5",
+		"hono": "^4.9.12"
+	},
+	"devDependencies": {
+		"@types/node": "^20.17.30",
+		"typescript": "^5.9.3"
+	}
+}

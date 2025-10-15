@@ -5,6 +5,7 @@
 		"build:sdks": "bunup",
 		"build:static": "bun run --cwd static build",
 		"dev:sdks": "bunup --watch",
+		"dev:server": "bun run --cwd server dev",
 		"test:build": "bun build:sdks --env inline && bun build:static",
 		"test:chat": "IFRAME_SRC=http://localhost:5000 bun run test:build && bun --port 5000 static/dist/chat/index.html & sleep 1 && bun test/chat.html",
 		"lint": "biome check .",
@@ -27,6 +28,7 @@
 	},
 	"workspaces": [
 		"static",
-		"packages/*"
+		"packages/*",
+		"server"
 	]
 }

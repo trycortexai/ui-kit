@@ -4,13 +4,14 @@ import Button from "../../../../ui/button";
 import { useChat } from "../../hooks/use-chat";
 
 export default function Composer(): React.ReactNode {
-	const { sendMessage } = useChat();
+	const { sendMessage, isLoading } = useChat();
 	const [input, setInput] = useState("");
 
-	const handleSend = () => {
-		if (input.trim()) {
-			sendMessage(input.trim());
+	const handleSend = async () => {
+		if (input.trim() && !isLoading) {
+			const message = input.trim();
 			setInput("");
+			await sendMessage(message);
 		}
 	};
 
@@ -31,11 +32,12 @@ export default function Composer(): React.ReactNode {
 						onKeyDown={handleKeyDown}
 						placeholder="Type a message..."
 						rows={1}
-						className="flex-1 bg-transparent border-0 outline-none resize-none px-2 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500 dark:placeholder:text-neutral-500 max-h-32"
+						disabled={isLoading}
+						className="flex-1 bg-transparent border-0 outline-none resize-none px-2 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500 dark:placeholder:text-neutral-500 max-h-32 disabled:opacity-50"
 					/>
 					<Button
 						onClick={handleSend}
-						disabled={!input.trim()}
+						disabled={!input.trim() || isLoading}
 						size="sm"
 						className="shrink-0"
 					>

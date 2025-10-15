@@ -15,8 +15,7 @@ export function parseConfigFromHash<T>(): T | null {
 		}
 
 		return null;
-	} catch (error) {
-		console.error("Failed to parse configuration:", error);
+	} catch {
 		return null;
 	}
 }
