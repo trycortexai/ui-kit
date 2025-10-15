@@ -1,7 +1,7 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { type KeyboardEvent, useState } from "react";
-import Button from "../../../../ui/button";
-import { useChat } from "../../hooks/use-chat";
+import Button from "../../../ui/button";
+import { useChat } from "../hooks/use-chat";
 
 export default function Composer(): React.ReactNode {
 	const { sendMessage, isLoading } = useChat();

@@ -1,7 +1,7 @@
-import Composer from "./components/composer/composer";
-import Header from "./components/header/header";
-import History from "./components/history/history";
-import Messages from "./components/messages/messages";
+import Composer from "./components/composer";
+import Header from "./components/header";
+import History from "./components/history";
+import Messages from "./components/messages";
 
 export default function ChatInterface() {
 	return (

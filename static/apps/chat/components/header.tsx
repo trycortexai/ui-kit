@@ -1,6 +1,6 @@
 import { Bars3Icon, PencilSquareIcon } from "@heroicons/react/24/solid";
-import Button from "../../../../ui/button";
-import { useChat } from "../../hooks/use-chat";
+import Button from "../../../ui/button";
+import { useChat } from "../hooks/use-chat";
 
 export default function Header(): React.ReactNode {
 	const { currentConversationId, createNewChat, toggleHistory } = useChat();

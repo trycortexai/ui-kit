@@ -1,4 +1,4 @@
-import { useChat } from "../../hooks/use-chat";
+import { useChat } from "../hooks/use-chat";
 
 export default function Greeting(): React.ReactNode {
 	const { greeting, suggestedMessages, sendMessage } = useChat();

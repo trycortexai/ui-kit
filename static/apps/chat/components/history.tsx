@@ -1,8 +1,8 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { createPortal } from "react-dom";
-import Button from "../../../../ui/button";
-import { useChat } from "../../hooks/use-chat";
-import { formatRelativeDate, groupConversationsByDate } from "../../utils/date";
+import Button from "../../../ui/button";
+import { useChat } from "../hooks/use-chat";
+import { formatRelativeDate, groupConversationsByDate } from "../utils/date";
 
 export default function History(): React.ReactNode {
 	const { conversations, selectConversation, isHistoryOpen, toggleHistory } =
