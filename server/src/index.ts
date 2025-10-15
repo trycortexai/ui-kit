@@ -9,12 +9,7 @@ const app = new Hono();
 
 app.use("*", logger());
 
-app.use(
-	"/*",
-	cors({
-		origin: ["http://localhost:5000", "https://api.ui-kit.com"],
-	}),
-);
+app.use("/*", cors());
 
 app.get("/", (c) => {
 	return c.text("Welcome to Cortex UI Kit API!");
