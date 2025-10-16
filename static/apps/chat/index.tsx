@@ -2,7 +2,7 @@
 
 import "../../styles/index.css";
 
-import type { CortexChatOptions } from "@cortex-ai/ui-kit-shared/chat";
+import type { CortexChatSerializableOptions } from "@cortex-ai/ui-kit-shared/chat";
 import { parseOptionsFromHash } from "@cortex-ai/ui-kit-shared/common";
 import ReactDOM from "react-dom/client";
 import ChatInterface from "./chat-interface";
@@ -26,7 +26,7 @@ if (elem) {
 function setGlobalStyleClasses() {
 	const html = document.documentElement;
 
-	const options = parseOptionsFromHash<CortexChatOptions>();
+	const options = parseOptionsFromHash<CortexChatSerializableOptions>();
 
 	if (!options) return;
 

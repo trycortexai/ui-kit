@@ -1,12 +1,14 @@
 import {
 	CHAT_STATIC_APP_HOSTED_URL,
 	type CortexChatOptions,
+	type CortexChatSerializableOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
 import { encodeObject } from "@cortex-ai/ui-kit-shared/common";
+import { CortexBridge } from "./utils/bridge";
 
 const IFRAME_SRC = process.env.IFRAME_SRC || CHAT_STATIC_APP_HOSTED_URL;
 
-class CortexChatElement extends HTMLElement {
+class CortexChatElement extends CortexBridge {
 	private options: CortexChatOptions | null = null;
 
 	constructor() {
@@ -25,7 +27,7 @@ class CortexChatElement extends HTMLElement {
 		this.render();
 	}
 
-	private getResolvedOptions(): CortexChatOptions {
+	private getSerializableOptions(): CortexChatSerializableOptions {
 		if (!this.options) {
 			throw new Error(
 				"Options not set. Call setOptions() before rendering the chat component.",
@@ -33,7 +35,7 @@ class CortexChatElement extends HTMLElement {
 		}
 
 		return {
-			...this.options,
+			agentId: this.options.agentId,
 			theme: {
 				colorScheme: "light",
 				accentColor: "blue",
@@ -52,8 +54,8 @@ class CortexChatElement extends HTMLElement {
 	}
 
 	private getIframeUrl(): string {
-		const resolvedOptions = this.getResolvedOptions();
-		return `${IFRAME_SRC}#${encodeObject(resolvedOptions)}`;
+		const serializableOptions = this.getSerializableOptions();
+		return `${IFRAME_SRC}#${encodeObject(serializableOptions)}`;
 	}
 
 	private render(): void {
@@ -78,6 +80,13 @@ class CortexChatElement extends HTMLElement {
       </style>
       <iframe src="${iframeUrl}"></iframe>
     `;
+
+		const iframe = this.shadowRoot.querySelector("iframe");
+		if (iframe && this.options.api) {
+			iframe.addEventListener("load", () => {
+				this.initialize(this.options!.api, iframe);
+			});
+		}
 	}
 }
 

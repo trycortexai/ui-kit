@@ -28,3 +28,6 @@ export type CortexUIKitAPIOptions = {
 	 */
 	getClientSecret: () => Promise<string>;
 };
+
+export * from "./bridge";
+export * from "./bridge-client";

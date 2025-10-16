@@ -8,27 +8,13 @@ const app = new Hono();
 
 app.use("*", logger());
 
-app.use(
-	"/*",
-	cors({
-		origin: "*",
-		credentials: process.env.NODE_ENV === "production",
-	}),
-);
+app.use("/*", cors());
 
 app.get("/", (c) => {
 	return c.text("Welcome to Cortex UI Kit API!");
 });
 
 app.route("/chat", chatRouter);
-
-app.get("/health", (c) => {
-	return c.json({
-		status: "ok",
-		uptime: process.uptime(),
-		timestamp: new Date().toISOString(),
-	});
-});
 
 app.onError((err, c) => {
 	console.error(`[Error] ${err.message}`);

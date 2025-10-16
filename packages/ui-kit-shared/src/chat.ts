@@ -82,6 +82,13 @@ export type CortexChatComposer = {
 	placeholder?: string;
 };
 
+export type CortexChatSerializableOptions = {
+	agentId: string;
+	theme?: CortexChatTheme;
+	startScreen?: CortexChatStartScreen;
+	composer?: CortexChatComposer;
+};
+
 /**
  * Configuration options for the Cortex chat interface
  */

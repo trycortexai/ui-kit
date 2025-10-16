@@ -7,7 +7,7 @@
 		"dev:sdks": "bunup --watch",
 		"dev:server": "bun run --cwd server dev",
 		"test:build": "bun build:sdks --env inline && bun build:static",
-		"test:chat": "IFRAME_SRC=http://localhost:5000 bun run test:build && bun --port 5000 static/dist/chat/index.html & sleep 1 && bun test/chat.html",
+		"test:chat": "IFRAME_SRC=http://localhost:5173 bun run test:build && bun --port 5173 static/dist/chat/index.html & sleep 1 && bun test/chat.html",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"type-check": "bun run --filter '*' type-check",
