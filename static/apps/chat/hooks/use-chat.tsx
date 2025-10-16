@@ -2,7 +2,7 @@ import { readStream } from "@cortex-ai/sdk";
 import { BridgeClient } from "@cortex-ai/ui-kit-shared/bridge/client";
 import {
 	CHAT_API_URL,
-	type CortexChatSerializableOptions,
+	type CortexChatOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
 import { parseOptionsFromHash } from "@cortex-ai/ui-kit-shared/common";
 import { parseMessageFromStepOutput } from "@cortex-ai/ui-kit-shared/cortex";
@@ -36,7 +36,7 @@ type ChatContextType = {
 	conversations: Conversation[];
 	currentConversationId: string | null;
 	currentMessages: Message[];
-	options: CortexChatSerializableOptions | null;
+	options: CortexChatOptions | null;
 	isHistoryOpen: boolean;
 	isLoading: boolean;
 	sendMessage: (content: string) => Promise<void>;
@@ -54,9 +54,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	>(null);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [options, setOptions] = useState<CortexChatSerializableOptions | null>(
-		null,
-	);
+	const [options, setOptions] = useState<CortexChatOptions | null>(null);
 	const [bridgeClient] = useState(() => new BridgeClient());
 	const [cachedClientSecret, setCachedClientSecret] = useState<string | null>(
 		null,
@@ -66,7 +64,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			const options = parseOptionsFromHash<CortexChatSerializableOptions>();
+			const options = parseOptionsFromHash<CortexChatOptions>();
 			if (options) {
 				setOptions(options);
 			}

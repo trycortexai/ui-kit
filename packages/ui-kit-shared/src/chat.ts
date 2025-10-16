@@ -1,4 +1,4 @@
-import { type CortexUIKitAPIOptions, UI_KIT_API_URL } from ".";
+import { UI_KIT_API_URL } from ".";
 
 export const CHAT_API_URL: string = `${UI_KIT_API_URL}/chat`;
 
@@ -82,13 +82,6 @@ export type CortexChatComposer = {
 	placeholder?: string;
 };
 
-export type CortexChatSerializableOptions = {
-	agentId: string;
-	theme?: CortexChatTheme;
-	startScreen?: CortexChatStartScreen;
-	composer?: CortexChatComposer;
-};
-
 /**
  * Configuration options for the Cortex chat interface
  */
@@ -97,11 +90,6 @@ export type CortexChatOptions = {
 	 * The agent ID to use for the chat
 	 */
 	agentId: string;
-
-	/**
-	 * API configuration options
-	 */
-	api: CortexUIKitAPIOptions;
 
 	/**
 	 * Theme customization options

@@ -1,7 +1,7 @@
+import type { CortexUIKitOptions } from "@cortex-ai/ui-kit-shared";
 import {
 	CHAT_STATIC_APP_HOSTED_URL,
 	type CortexChatOptions,
-	type CortexChatSerializableOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
 import { encodeObject } from "@cortex-ai/ui-kit-shared/common";
 import { ElementBridgeExtension } from "./classes/bridge-extension";
@@ -9,7 +9,7 @@ import { ElementBridgeExtension } from "./classes/bridge-extension";
 const IFRAME_SRC = process.env.IFRAME_SRC || CHAT_STATIC_APP_HOSTED_URL;
 
 class CortexChatElement extends ElementBridgeExtension {
-	private options: CortexChatOptions | null = null;
+	private options: (CortexChatOptions & CortexUIKitOptions) | null = null;
 
 	constructor() {
 		super();
@@ -22,12 +22,12 @@ class CortexChatElement extends ElementBridgeExtension {
 		}
 	}
 
-	setOptions(options: CortexChatOptions): void {
+	setOptions(options: CortexChatOptions & CortexUIKitOptions): void {
 		this.options = options;
 		this.render();
 	}
 
-	private getSerializableOptions(): CortexChatSerializableOptions {
+	private getSerializableOptions(): CortexChatOptions {
 		if (!this.options) {
 			throw new Error(
 				"Options not set. Call setOptions() before rendering the chat component.",

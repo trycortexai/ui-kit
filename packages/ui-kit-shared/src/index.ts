@@ -8,6 +8,13 @@ export const UI_KIT_API_URL: string =
 export const UI_KIT_SCRIPT_URL =
 	"https://unpkg.com/@cortex-ai/ui-kit@latest/dist/index.js";
 
+export type CortexUIKitOptions = {
+	/**
+	 * API configuration options
+	 */
+	api: CortexUIKitAPIOptions;
+};
+
 /**
  * API configuration options for Cortex UI Kit
  */
