@@ -6,7 +6,7 @@ export function decodeObject<T>(input: string): T {
 	return JSON.parse(atob(input));
 }
 
-export function parseConfigFromHash<T>(): T | null {
+export function parseOptionsFromHash<T>(): T | null {
 	try {
 		const hash = window.location.hash.substring(1);
 

@@ -1,25 +1,21 @@
 {
 	"name": "@cortex-ai/ui-kit",
-	"version": "0.1.8",
 	"description": "The official cortex UI kit",
-	"license": "MIT",
+	"version": "0.1.8",
+	"type": "module",
 	"files": [
 		"dist"
 	],
-	"type": "module",
 	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"dependencies": {
-		"@cortex-ai/ui-kit-shared": "workspace:*"
-	},
 	"exports": {
 		".": {
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			}
+			"import": "./dist/index.js"
 		},
 		"./package.json": "./package.json"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@cortex-ai/ui-kit-shared": "workspace:*"
 	},
 	"scripts": {
 		"type-check": "tsc --noEmit"

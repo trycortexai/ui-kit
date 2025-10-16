@@ -1,7 +1,11 @@
 import { useChat } from "../hooks/use-chat";
 
 export default function Greeting(): React.ReactNode {
-	const { greeting, suggestedMessages, sendMessage } = useChat();
+	const { options, sendMessage } = useChat();
+
+	const greeting =
+		options?.startScreen?.greeting || "Hello! How can I help you today?";
+	const suggestedMessages = options?.startScreen?.suggestedMessages || [];
 
 	return (
 		<div className="flex flex-col items-center justify-center h-full px-4">
@@ -15,10 +19,10 @@ export default function Greeting(): React.ReactNode {
 						<button
 							type="button"
 							key={index}
-							onClick={() => sendMessage(message)}
+							onClick={() => sendMessage(message.prompt)}
 							className="p-4 text-left text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
 						>
-							{message}
+							{message.label}
 						</button>
 					))}
 				</div>

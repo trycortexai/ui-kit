@@ -1,9 +1,9 @@
 import { readStream } from "@cortex-ai/sdk";
 import {
 	CHAT_API_URL,
-	type CortexChatConfig,
+	type CortexChatOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
-import { parseConfigFromHash } from "@cortex-ai/ui-kit-shared/common";
+import { parseOptionsFromHash } from "@cortex-ai/ui-kit-shared/common";
 import { parseMessageFromStepOutput } from "@cortex-ai/ui-kit-shared/cortex";
 import {
 	createContext,
@@ -35,8 +35,7 @@ type ChatContextType = {
 	conversations: Conversation[];
 	currentConversationId: string | null;
 	currentMessages: Message[];
-	greeting: string;
-	suggestedMessages: string[];
+	options: CortexChatOptions | null;
 	isHistoryOpen: boolean;
 	isLoading: boolean;
 	sendMessage: (content: string) => Promise<void>;
@@ -54,27 +53,15 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	>(null);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [clientSecret, setClientSecret] = useState<string | null>(null);
-	const [workflowId, setWorkflowId] = useState<string | null>(null);
-	const [greeting, setGreeting] = useState<string>(
-		"Hello! How can I help you today?",
-	);
-	const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
+	const [options, setOptions] = useState<CortexChatOptions | null>(null);
 
 	const db = useChatIndexedDB();
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			const config = parseConfigFromHash<CortexChatConfig>();
-			if (config) {
-				setClientSecret(config.clientSecret);
-				setWorkflowId(config.agentId || null);
-				if (config.options?.greeting) {
-					setGreeting(config.options.greeting);
-				}
-				if (config.options?.suggestedMessages) {
-					setSuggestedMessages(config.options.suggestedMessages);
-				}
+			const options = parseOptionsFromHash<CortexChatOptions>();
+			if (options) {
+				setOptions(options);
 			}
 		}
 	}, []);
@@ -113,11 +100,11 @@ export function ChatProvider({ children }: PropsWithChildren) {
 
 	const streamChatResponse = useCallback(
 		async (messages: Message[], onMessageUpdate: (content: string) => void) => {
-			if (!clientSecret || !workflowId) {
-				throw new Error(
-					"Configuration missing: clientSecret and workflowId are required",
-				);
+			if (!options) {
+				throw new Error("Configuration missing: options are required");
 			}
+
+			const clientSecret = await options.api.getClientSecret();
 
 			const response = await fetch(CHAT_API_URL, {
 				method: "POST",
@@ -127,7 +114,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				body: JSON.stringify({
 					messages,
 					clientSecret,
-					workflowId,
+					workflowId: options.agentId,
 				}),
 			});
 
@@ -142,7 +129,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				}
 			});
 		},
-		[clientSecret, workflowId],
+		[options],
 	);
 
 	const updateConversationMessages = useCallback(
@@ -277,8 +264,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				conversations,
 				currentConversationId,
 				currentMessages,
-				greeting,
-				suggestedMessages,
+				options,
 				isHistoryOpen,
 				isLoading,
 				sendMessage,

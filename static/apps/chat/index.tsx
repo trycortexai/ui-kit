@@ -2,8 +2,8 @@
 
 import "../../styles/index.css";
 
-import type { CortexChatConfig } from "@cortex-ai/ui-kit-shared/chat";
-import { parseConfigFromHash } from "@cortex-ai/ui-kit-shared/common";
+import type { CortexChatOptions } from "@cortex-ai/ui-kit-shared/chat";
+import { parseOptionsFromHash } from "@cortex-ai/ui-kit-shared/common";
 import ReactDOM from "react-dom/client";
 import ChatInterface from "./chat-interface";
 import { ChatProvider } from "./hooks/use-chat";
@@ -26,20 +26,20 @@ if (elem) {
 function setGlobalStyleClasses() {
 	const html = document.documentElement;
 
-	const config = parseConfigFromHash<CortexChatConfig>();
+	const options = parseOptionsFromHash<CortexChatOptions>();
 
-	if (!config) return;
+	if (!options) return;
 
-	if (config.options.colorScheme) {
-		html.classList.add(config.options.colorScheme);
+	if (options.theme?.colorScheme) {
+		html.classList.add(options.theme.colorScheme);
 	}
 
-	if (config.options.accentColor) {
-		html.classList.add(`accent-${config.options.accentColor}`);
+	if (options.theme?.accentColor) {
+		html.classList.add(`accent-${options.theme.accentColor}`);
 	}
 
-	if (config.options.neutralColor) {
-		html.classList.add(`neutral-${config.options.neutralColor}`);
+	if (options.theme?.neutralColor) {
+		html.classList.add(`neutral-${options.theme.neutralColor}`);
 	}
 }
 

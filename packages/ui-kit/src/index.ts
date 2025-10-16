@@ -1,1 +1,1 @@
-export { CortexChat } from "./cortex-chat";
+import "./cortex-chat.ts";
