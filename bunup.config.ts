@@ -19,6 +19,13 @@ export default defineWorkspace(
 			name: "ui-kit",
 			root: "packages/ui-kit",
 		},
+		{
+			name: "ui-kit-react",
+			root: "packages/ui-kit-react",
+			config: {
+				entry: ["src/chat.tsx"],
+			},
+		},
 	],
 	{
 		exports: true,

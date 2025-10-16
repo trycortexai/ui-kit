@@ -36,6 +36,9 @@
 		"./package.json": "./package.json"
 	},
 	"license": "MIT",
+	"scripts": {
+		"type-check": "tsc --noEmit"
+	},
 	"peerDependencies": {
 		"typescript": ">=4.5.0"
 	},

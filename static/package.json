@@ -21,7 +21,8 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "bun build.ts"
+		"build": "bun build.ts",
+		"type-check": "tsc --noEmit"
 	},
 	"type": "module"
 }

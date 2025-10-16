@@ -31,7 +31,7 @@ jobs:
         run: bun run build
 
       - name: Type check
-        run: bun run tsc
+        run: bun run type-check
 
       - name: Lint
         run: bun run lint

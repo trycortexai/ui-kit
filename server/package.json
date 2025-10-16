@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "bun run --watch main.ts",
 		"start": "bun run main.ts",
-		"build": "bun build main.ts --compile --outfile server"
+		"build": "bun build main.ts --compile --outfile server",
+		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@cortex-ai/ui-kit-shared": "workspace:*",

@@ -1,0 +1,42 @@
+{
+	"name": "@cortex-ai/ui-kit-react",
+	"description": "The official cortex UI kit for React",
+	"version": "0.1.8",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"exports": {
+		"./chat": {
+			"import": {
+				"types": "./dist/chat.d.ts",
+				"default": "./dist/chat.js"
+			}
+		},
+		"./package.json": "./package.json"
+	},
+	"license": "MIT",
+	"scripts": {
+		"type-check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@cortex-ai/ui-kit-shared": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/react": "^19.1.10",
+		"@types/react-dom": "^19.1.9",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"typescript": "^5.9.2"
+	},
+	"peerDependencies": {
+		"typescript": ">=4.5.0",
+		"react": "^18.0.0 || ^19.0.0",
+		"react-dom": "^18.0.0 || ^19.0.0"
+	},
+	"peerDependenciesMeta": {
+		"typescript": {
+			"optional": true
+		}
+	}
+}

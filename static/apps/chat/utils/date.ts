@@ -101,11 +101,11 @@ export function groupConversationsByDate<
 
 	for (const conversation of conversations) {
 		const category = getDateCategory(conversation.createdAt);
-		groups[category].push(conversation);
+		groups[category]?.push(conversation);
 	}
 
 	for (const category of Object.keys(groups)) {
-		groups[category].sort(
+		groups[category]?.sort(
 			(a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
 		);
 	}
