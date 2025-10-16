@@ -18,23 +18,22 @@ bun add @cortex-ai/ui-kit
 import { useCortexUIKit } from "@cortex-ai/ui-kit"
 import { CortexChat } from "@cortex-ai/ui-kit/chat"
 
-export default function App(){
-	const { control } = useCortexUIKit({
-		async getClientSecret() {
-			// this will be actual fetch request to generate a client secret and then return it once we implement client secret support
-			// for now just return the Cortex API key (not safe, dangeroes)
-
+export default function App() {
+  const { control } = useCortexUIKit({
+    async getClientSecret() {
+      // this will be actual fetch request to generate a client secret and then return it once we implement client secret support
+      // for now just return the Cortex API key (not safe, dangeroes)
       return "xxx"
     }
-	})
+  })
 
-	return (
-		<div>
-			<CortexChat control={control} agentId="work_xxx" theme="fuchsia" />
-		</div>
-	)
+  return (
+    <div>
+      <CortexChat control={control} agentId="work_xxx" theme="fuchsia" />
+    </div>
+  )
 }
-````
+```
 
 #### Options
 
@@ -67,30 +66,30 @@ The `CortexChat` component accepts the following options:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div>
-        <cortex-chat id="my-chat"></cortex-chat>
-    </div>
+  <div>
+    <cortex-chat id="my-chat"></cortex-chat>
+  </div>
 
-		<!-- Load UI kit -->
-    <script src="https://unpkg.com/@cortex-ai/ui-kit@latest/dist/index.js"></script>
+  <!-- Load UI kit -->
+  <script src="https://unpkg.com/@cortex-ai/ui-kit@latest/dist/index.js"></script>
 
-    <!-- Set options -->
-    <script>
-      const myChat = document.getElementById("my-chat");
-      myChat.setOptions({
-        agentId: "work_xxx",
-        api: {
-          async getClientSecret() {
-            return "xxx"
-          }
-        },
-        theme: "fuchsia"
-      });
-    </script>
+  <!-- Set options -->
+  <script>
+    const myChat = document.getElementById("my-chat");
+    myChat.setOptions({
+      agentId: "work_xxx",
+      api: {
+        async getClientSecret() {
+          return "xxx"
+        }
+      },
+      theme: "fuchsia"
+    });
+  </script>
 </body>
 </html>
 ```
