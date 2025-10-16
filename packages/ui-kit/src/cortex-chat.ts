@@ -1,9 +1,10 @@
-import type { CortexChatOptions } from "@cortex-ai/ui-kit-shared/chat";
+import {
+	CHAT_STATIC_APP_HOSTED_URL,
+	type CortexChatOptions,
+} from "@cortex-ai/ui-kit-shared/chat";
 import { encodeObject } from "@cortex-ai/ui-kit-shared/common";
 
-const IFRAME_SRC =
-	process.env.IFRAME_SRC ||
-	"https://unpkg.com/@cortex-ai/static@latest/dist/chat/index.html";
+const IFRAME_SRC = process.env.IFRAME_SRC || CHAT_STATIC_APP_HOSTED_URL;
 
 export class CortexChat extends HTMLElement {
 	public options: CortexChatOptions;
