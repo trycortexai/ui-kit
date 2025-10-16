@@ -35,16 +35,18 @@ class CortexChatElement extends HTMLElement {
 		return {
 			...this.options,
 			theme: {
+				colorScheme: "light",
+				accentColor: "blue",
+				neutralColor: "zinc",
 				...this.options.theme,
-				colorScheme: this.options.theme?.colorScheme || "light",
-				accentColor: this.options.theme?.accentColor || "blue",
-				neutralColor: this.options.theme?.neutralColor || "zinc",
 			},
 			startScreen: {
+				greeting: "Hello! How can I help you today?",
 				...this.options.startScreen,
-				greeting:
-					this.options.startScreen?.greeting ||
-					"Hello! How can I help you today?",
+			},
+			composer: {
+				placeholder: "Type a message...",
+				...this.options.composer,
 			},
 		};
 	}

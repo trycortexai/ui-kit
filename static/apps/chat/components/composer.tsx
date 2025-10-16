@@ -4,7 +4,7 @@ import Button from "../../../ui/button";
 import { useChat } from "../hooks/use-chat";
 
 export default function Composer(): React.ReactNode {
-	const { sendMessage, isLoading } = useChat();
+	const { sendMessage, isLoading, options } = useChat();
 	const [input, setInput] = useState("");
 
 	const handleSend = async () => {
@@ -30,7 +30,7 @@ export default function Composer(): React.ReactNode {
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
 						onKeyDown={handleKeyDown}
-						placeholder="Type a message..."
+						placeholder={options?.composer?.placeholder}
 						rows={1}
 						disabled={isLoading}
 						className="flex-1 bg-transparent border-0 outline-none resize-none px-2 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500 dark:placeholder:text-neutral-500 max-h-32 disabled:opacity-50"

@@ -72,6 +72,17 @@ export type CortexChatStartScreen = {
 };
 
 /**
+ * Composer configuration for the chat interface
+ */
+export type CortexChatComposer = {
+	/**
+	 * Custom placeholder text for the message input
+	 * @default "Type a message..."
+	 */
+	placeholder?: string;
+};
+
+/**
  * Configuration options for the Cortex chat interface
  */
 export type CortexChatOptions = {
@@ -94,4 +105,9 @@ export type CortexChatOptions = {
 	 * Start screen configuration
 	 */
 	startScreen?: CortexChatStartScreen;
+
+	/**
+	 * Composer configuration
+	 */
+	composer?: CortexChatComposer;
 };
