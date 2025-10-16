@@ -1,14 +1,14 @@
+import type { CortexUIKitAPIOptions } from "@cortex-ai/ui-kit-shared";
 import {
 	BridgeMessageType,
 	type BridgeMessageUnion,
-	type CortexUIKitAPIOptions,
 	type ErrorMessage,
 	isBridgeMessage,
 	type RequestClientSecretMessage,
 	type ResponseClientSecretMessage,
-} from "@cortex-ai/ui-kit-shared";
+} from "@cortex-ai/ui-kit-shared/bridge";
 
-export abstract class CortexBridge extends HTMLElement {
+export abstract class ElementBridgeExtension extends HTMLElement {
 	private apiOptions: CortexUIKitAPIOptions | null = null;
 	private iframe: HTMLIFrameElement | null = null;
 	private boundHandleMessage: ((event: MessageEvent) => Promise<void>) | null =

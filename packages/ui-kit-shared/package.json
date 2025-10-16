@@ -33,6 +33,18 @@
 				"default": "./dist/common.js"
 			}
 		},
+		"./bridge/client": {
+			"import": {
+				"types": "./dist/bridge/client.d.ts",
+				"default": "./dist/bridge/client.js"
+			}
+		},
+		"./bridge": {
+			"import": {
+				"types": "./dist/bridge/index.d.ts",
+				"default": "./dist/bridge/index.js"
+			}
+		},
 		"./package.json": "./package.json"
 	},
 	"license": "MIT",

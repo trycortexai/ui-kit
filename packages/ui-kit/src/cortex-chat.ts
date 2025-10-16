@@ -4,11 +4,11 @@ import {
 	type CortexChatSerializableOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
 import { encodeObject } from "@cortex-ai/ui-kit-shared/common";
-import { CortexBridge } from "./utils/bridge";
+import { ElementBridgeExtension } from "./classes/bridge-extension";
 
 const IFRAME_SRC = process.env.IFRAME_SRC || CHAT_STATIC_APP_HOSTED_URL;
 
-class CortexChatElement extends CortexBridge {
+class CortexChatElement extends ElementBridgeExtension {
 	private options: CortexChatOptions | null = null;
 
 	constructor() {

@@ -5,7 +5,7 @@ import {
 	isBridgeMessage,
 	type RequestClientSecretMessage,
 	type ResponseClientSecretMessage,
-} from "./bridge";
+} from ".";
 
 type PendingRequest = {
 	resolve: (value: string) => void;

@@ -1,5 +1,5 @@
 import { readStream } from "@cortex-ai/sdk";
-import { BridgeClient } from "@cortex-ai/ui-kit-shared";
+import { BridgeClient } from "@cortex-ai/ui-kit-shared/bridge/client";
 import {
 	CHAT_API_URL,
 	type CortexChatSerializableOptions,

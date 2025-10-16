@@ -11,6 +11,8 @@ export default defineWorkspace(
 					"src/chat.ts",
 					"src/cortex.ts",
 					"src/common.ts",
+					"src/bridge/index.ts",
+					"src/bridge/client.ts",
 				],
 				splitting: false,
 			},
