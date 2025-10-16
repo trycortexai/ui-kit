@@ -3,7 +3,7 @@ import type { CortexChatOptions as CoreCortexChatOptions } from "@cortex-ai/ui-k
 import { useEffect, useRef } from "react";
 import type { CortexUIKitControl } from ".";
 
-type CortexChatProps = React.HTMLAttributes<CortexChatElement> & {
+export type CortexChatProps = React.HTMLAttributes<CortexChatElement> & {
 	control: CortexUIKitControl;
 	options: CoreCortexChatOptions;
 };
