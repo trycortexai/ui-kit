@@ -3,15 +3,16 @@
 	"type": "module",
 	"version": "0.1.0",
 	"scripts": {
-		"dev": "bun src/index.ts"
+		"dev": "bun run --watch main.ts",
+		"start": "bun run main.ts",
+		"build": "bun build main.ts --compile --outfile server"
 	},
 	"dependencies": {
-		"@hono/node-server": "^1.19.5",
-		"hono": "^4.9.12",
-		"@cortex-ai/ui-kit-shared": "workspace:*"
+		"@cortex-ai/ui-kit-shared": "workspace:*",
+		"hono": "^4.9.12"
 	},
 	"devDependencies": {
-		"@types/node": "^20.17.30",
+		"@types/bun": "^1.3.0",
 		"typescript": "^5.9.3"
 	}
 }
