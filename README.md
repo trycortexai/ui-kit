@@ -9,7 +9,7 @@ It's on the first phase. Here is a simple guide on how to use UI kit:
 #### Installation
 
 ```sh
-bun add @cortex-ai/ui-kit
+npm install @cortex-ai/ui-kit
 ```
 
 #### Usage
