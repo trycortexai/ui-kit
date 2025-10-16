@@ -4,7 +4,6 @@ import {
 	CHAT_API_URL,
 	type CortexChatOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
-import { parseOptionsFromHash } from "@cortex-ai/ui-kit-shared/common";
 import { parseMessageFromStepOutput } from "@cortex-ai/ui-kit-shared/cortex";
 import {
 	createContext,
@@ -36,7 +35,7 @@ type ChatContextType = {
 	conversations: Conversation[];
 	currentConversationId: string | null;
 	currentMessages: Message[];
-	options: CortexChatOptions | null;
+	chatOptions: CortexChatOptions | null;
 	isHistoryOpen: boolean;
 	isLoading: boolean;
 	sendMessage: (content: string) => Promise<void>;
@@ -54,22 +53,25 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	>(null);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [options, setOptions] = useState<CortexChatOptions | null>(null);
-	const [bridgeClient] = useState(() => new BridgeClient());
-	const [cachedClientSecret, setCachedClientSecret] = useState<string | null>(
+	const [chatOptions, setChatOptions] = useState<CortexChatOptions | null>(
 		null,
 	);
+	const [bridgeClient] = useState(() => new BridgeClient<CortexChatOptions>());
 
 	const db = useChatIndexedDB();
 
 	useEffect(() => {
-		if (typeof window !== "undefined") {
-			const options = parseOptionsFromHash<CortexChatOptions>();
-			if (options) {
-				setOptions(options);
+		const loadOptions = async () => {
+			try {
+				const options = await bridgeClient.getOptions();
+				setChatOptions(options);
+			} catch (error) {
+				console.error("Failed to load options from bridge:", error);
 			}
-		}
-	}, []);
+		};
+
+		loadOptions();
+	}, [bridgeClient]);
 
 	useEffect(() => {
 		return () => {
@@ -109,29 +111,13 @@ export function ChatProvider({ children }: PropsWithChildren) {
 	);
 	const currentMessages = currentConversation?.messages || [];
 
-	const getClientSecret = useCallback(async (): Promise<string> => {
-		if (cachedClientSecret) {
-			return cachedClientSecret;
-		}
-
-		const secret = await bridgeClient.getClientSecret();
-		setCachedClientSecret(secret);
-		return secret;
-	}, [cachedClientSecret, bridgeClient]);
-
 	const streamChatResponse = useCallback(
 		async (messages: Message[], onMessageUpdate: (content: string) => void) => {
-			if (!options) {
-				throw new Error("Configuration missing: options are required");
+			if (!chatOptions) {
+				throw new Error("Configuration missing: chat options are required");
 			}
 
-			const clientSecret = await getClientSecret();
-
-			console.log({
-				messages,
-				clientSecret,
-				workflowId: options.agentId,
-			});
+			const clientSecret = await bridgeClient.getClientSecret();
 
 			const response = await fetch(CHAT_API_URL, {
 				method: "POST",
@@ -141,7 +127,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				body: JSON.stringify({
 					messages,
 					clientSecret,
-					workflowId: options.agentId,
+					workflowId: chatOptions.agentId,
 				}),
 			});
 
@@ -156,7 +142,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				}
 			});
 		},
-		[options, getClientSecret],
+		[chatOptions, bridgeClient],
 	);
 
 	const updateConversationMessages = useCallback(
@@ -291,7 +277,7 @@ export function ChatProvider({ children }: PropsWithChildren) {
 				conversations,
 				currentConversationId,
 				currentMessages,
-				options,
+				chatOptions,
 				isHistoryOpen,
 				isLoading,
 				sendMessage,

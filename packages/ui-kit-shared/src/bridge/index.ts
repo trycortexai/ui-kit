@@ -1,4 +1,6 @@
 export enum BridgeMessageType {
+	REQUEST_OPTIONS = "REQUEST_OPTIONS",
+	RESPONSE_OPTIONS = "RESPONSE_OPTIONS",
 	REQUEST_CLIENT_SECRET = "REQUEST_CLIENT_SECRET",
 	RESPONSE_CLIENT_SECRET = "RESPONSE_CLIENT_SECRET",
 	ERROR = "ERROR",
@@ -8,6 +10,19 @@ export type BridgeMessage = {
 	id: string;
 	type: BridgeMessageType;
 	payload?: unknown;
+};
+
+export type RequestOptionsMessage = {
+	id: string;
+	type: BridgeMessageType.REQUEST_OPTIONS;
+};
+
+export type ResponseOptionsMessage<TUIOptions = unknown> = {
+	id: string;
+	type: BridgeMessageType.RESPONSE_OPTIONS;
+	payload: {
+		uiOptions: TUIOptions;
+	};
 };
 
 export type RequestClientSecretMessage = {
@@ -31,7 +46,9 @@ export type ErrorMessage = {
 	};
 };
 
-export type BridgeMessageUnion =
+export type BridgeMessageUnion<TUIOptions = unknown> =
+	| RequestOptionsMessage
+	| ResponseOptionsMessage<TUIOptions>
 	| RequestClientSecretMessage
 	| ResponseClientSecretMessage
 	| ErrorMessage;

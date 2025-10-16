@@ -3,13 +3,13 @@ import {
 	CHAT_STATIC_APP_HOSTED_URL,
 	type CortexChatOptions,
 } from "@cortex-ai/ui-kit-shared/chat";
-import { encodeObject } from "@cortex-ai/ui-kit-shared/common";
 import { ElementBridgeExtension } from "./classes/bridge-extension";
 
 const IFRAME_SRC = process.env.IFRAME_SRC || CHAT_STATIC_APP_HOSTED_URL;
 
-class CortexChatElement extends ElementBridgeExtension {
-	private options: (CortexChatOptions & CortexUIKitOptions) | null = null;
+class CortexChatElement extends ElementBridgeExtension<CortexChatOptions> {
+	private localChatOptions: CortexChatOptions | null = null;
+	private localUIKitOptions: CortexUIKitOptions | null = null;
 
 	constructor() {
 		super();
@@ -17,53 +17,41 @@ class CortexChatElement extends ElementBridgeExtension {
 	}
 
 	connectedCallback(): void {
-		if (this.options) {
+		if (this.localChatOptions && this.localUIKitOptions) {
 			this.render();
 		}
 	}
 
 	setOptions(options: CortexChatOptions & CortexUIKitOptions): void {
-		this.options = options;
-		this.render();
-	}
+		const { api, ...chatOptions } = options;
 
-	private getSerializableOptions(): CortexChatOptions {
-		if (!this.options) {
-			throw new Error(
-				"Options not set. Call setOptions() before rendering the chat component.",
-			);
-		}
-
-		return {
-			agentId: this.options.agentId,
+		this.localChatOptions = {
+			agentId: chatOptions.agentId,
 			theme: {
 				colorScheme: "light",
 				accentColor: "blue",
 				neutralColor: "zinc",
-				...this.options.theme,
+				...chatOptions.theme,
 			},
 			startScreen: {
 				greeting: "Hello! How can I help you today?",
-				...this.options.startScreen,
+				...chatOptions.startScreen,
 			},
 			composer: {
 				placeholder: "Type a message...",
-				...this.options.composer,
+				...chatOptions.composer,
 			},
 		};
-	}
 
-	private getIframeUrl(): string {
-		const serializableOptions = this.getSerializableOptions();
-		return `${IFRAME_SRC}#${encodeObject(serializableOptions)}`;
+		this.localUIKitOptions = { api };
+
+		this.render();
 	}
 
 	private render(): void {
-		if (!this.options || !this.shadowRoot) {
+		if (!this.localChatOptions || !this.localUIKitOptions || !this.shadowRoot) {
 			return;
 		}
-
-		const iframeUrl = this.getIframeUrl();
 
 		this.shadowRoot.innerHTML = `
       <style>
@@ -78,14 +66,12 @@ class CortexChatElement extends ElementBridgeExtension {
           border: none;
         }
       </style>
-      <iframe src="${iframeUrl}"></iframe>
+      <iframe src="${IFRAME_SRC}"></iframe>
     `;
 
 		const iframe = this.shadowRoot.querySelector("iframe");
-		if (iframe && this.options.api) {
-			iframe.addEventListener("load", () => {
-				this.initialize(this.options!.api, iframe);
-			});
+		if (iframe) {
+			this.initialize(this.localChatOptions, this.localUIKitOptions, iframe);
 		}
 	}
 }
