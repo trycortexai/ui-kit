@@ -20,10 +20,12 @@ import { CortexChat } from "@cortex-ai/ui-kit/chat"
 
 export default function App() {
   const { control } = useCortexUIKit({
-    async getClientSecret() {
-      // this will be actual fetch request to generate a client secret and then return it once we implement client secret support
-      // for now just return the Cortex API key (not safe, dangeroes)
-      return "xxx"
+    api: {
+      async getClientSecret() {
+        // this will be actual fetch request to generate a client secret and then return it once we implement client secret support
+        // for now just return the Cortex API key (not safe, dangeroes)
+        return "xxx"
+      }
     }
   })
 
