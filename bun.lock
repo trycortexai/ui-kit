@@ -30,6 +30,7 @@
       "name": "@cortex-ai/ui-kit-react",
       "version": "0.1.8",
       "dependencies": {
+        "@cortex-ai/ui-kit": "workspace:*",
         "@cortex-ai/ui-kit-shared": "workspace:*",
       },
       "devDependencies": {

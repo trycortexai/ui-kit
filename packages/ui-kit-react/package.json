@@ -20,7 +20,8 @@
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@cortex-ai/ui-kit-shared": "workspace:*"
+		"@cortex-ai/ui-kit-shared": "workspace:*",
+		"@cortex-ai/ui-kit": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "^19.1.10",

@@ -1,1 +1,1 @@
-import "./cortex-chat.ts";
+export { CortexChatElement } from "./cortex-chat";

@@ -7,7 +7,7 @@ import { ElementBridgeExtension } from "./classes/bridge-extension";
 
 const IFRAME_SRC = process.env.IFRAME_SRC || CHAT_STATIC_APP_HOSTED_URL;
 
-class CortexChatElement extends ElementBridgeExtension<CortexChatOptions> {
+export class CortexChatElement extends ElementBridgeExtension<CortexChatOptions> {
 	private localChatOptions: CortexChatOptions | null = null;
 	private localUIKitOptions: CortexUIKitOptions | null = null;
 
