@@ -1,6 +1,6 @@
 # Cortex UI Kit
 
-It's on the first phase. Here is a simple guide on how to use UI kit:
+It's in the first phase. Here is a simple guide on how to use the UI kit:
 
 ## Chat
 
@@ -22,8 +22,8 @@ export default function App() {
   const { control } = useCortexUIKit({
     api: {
       async getClientSecret() {
-        // this will be actual fetch request to generate a client secret and then return it once we implement client secret support
-        // for now just return the Cortex API key (not safe, dangeroes)
+        // this will be an actual fetch request to generate a client secret and then return it once client secret support is implemented (soon)
+        // for now just return the Cortex API key (not safe, dangerous)
         return "xxx"
       }
     }
