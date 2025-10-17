@@ -5,9 +5,6 @@ export const UI_KIT_API_URL: string =
 		? `http://localhost:${UI_KIT_DEV_SERVER_PORT}`
 		: "https://cortex-aiui-kit-server-production.up.railway.app/";
 
-export const UI_KIT_SCRIPT_URL =
-	"https://unpkg.com/@cortex-ai/ui-kit@latest/dist/index.js";
-
 export type CortexUIKitOptions = {
 	/**
 	 * API configuration options

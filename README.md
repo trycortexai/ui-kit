@@ -84,8 +84,8 @@ The `CortexChat` component accepts the following options:
     <cortex-chat id="my-chat"></cortex-chat>
   </div>
 
-  <!-- Load UI kit -->
-  <script src="https://unpkg.com/@cortex-ai/ui-kit@latest/dist/index.js"></script>
+  <!-- Load Chat from UI kit -->
+  <script src="https://unpkg.com/@cortex-ai/ui-kit@latest/dist/cortex-chat.js"></script>
 
   <!-- Set options -->
   <script>

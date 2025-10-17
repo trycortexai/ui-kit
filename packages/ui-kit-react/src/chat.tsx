@@ -1,7 +1,10 @@
 "use client";
 
-import type { CortexChatElement } from "@cortex-ai/ui-kit";
-import type { CortexChatOptions as CoreCortexChatOptions } from "@cortex-ai/ui-kit-shared/chat";
+import type { CortexChatElement } from "@cortex-ai/ui-kit/cortex-chat";
+import {
+	CHAT_JS_SCRIPT_URL,
+	type CortexChatOptions as CoreCortexChatOptions,
+} from "@cortex-ai/ui-kit-shared/chat";
 import { useEffect, useRef } from "react";
 import type { CortexUIKitControl } from ".";
 
@@ -47,7 +50,12 @@ export function CortexChat({
 		});
 	}, [options, control]);
 
-	return <cortex-chat ref={chatRef} {...htmlProps}></cortex-chat>;
+	return (
+		<>
+			<cortex-chat ref={chatRef} {...htmlProps}></cortex-chat>
+			<script src={CHAT_JS_SCRIPT_URL}></script>
+		</>
+	);
 }
 
 export default CortexChat;
