@@ -1,7 +1,7 @@
 {
 	"name": "@cortex-ai/ui-kit-shared",
 	"description": "Shared types and helpers for Cortex UI components",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"type": "module",
 	"files": [
 		"dist"
