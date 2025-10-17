@@ -5,9 +5,6 @@ export const CHAT_API_URL: string = `${UI_KIT_API_URL}/chat`;
 export const CHAT_STATIC_APP_HOSTED_URL =
 	"https://unpkg.com/@cortex-ai/static@latest/dist/chat/index.html";
 
-export const CHAT_JS_SCRIPT_URL =
-	"https://unpkg.com/@cortex-ai/ui-kit@latest/dist/cortex-chat.js";
-
 /**
  * A suggested message with a label and prompt
  */
