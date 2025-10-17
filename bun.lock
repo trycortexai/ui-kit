@@ -15,7 +15,7 @@
     },
     "packages/ui-kit": {
       "name": "@cortex-ai/ui-kit",
-      "version": "0.2.9",
+      "version": "0.2.13",
       "dependencies": {
         "@cortex-ai/ui-kit-shared": "workspace:*",
       },
@@ -28,7 +28,7 @@
     },
     "packages/ui-kit-react": {
       "name": "@cortex-ai/ui-kit-react",
-      "version": "0.2.9",
+      "version": "0.2.13",
       "dependencies": {
         "@cortex-ai/ui-kit": "workspace:*",
         "@cortex-ai/ui-kit-shared": "workspace:*",
@@ -51,7 +51,7 @@
     },
     "packages/ui-kit-shared": {
       "name": "@cortex-ai/ui-kit-shared",
-      "version": "0.2.9",
+      "version": "0.2.13",
       "dependencies": {
         "@cortex-ai/sdk": "^0.7.4",
       },
@@ -64,7 +64,7 @@
     },
     "server": {
       "name": "@cortex-ai/ui-kit-server",
-      "version": "0.2.9",
+      "version": "0.2.13",
       "dependencies": {
         "@cortex-ai/ui-kit-shared": "workspace:*",
         "hono": "^4.9.12",
@@ -76,7 +76,7 @@
     },
     "static": {
       "name": "@cortex-ai/static",
-      "version": "0.2.9",
+      "version": "0.2.13",
       "dependencies": {
         "@cortex-ai/ui-kit-shared": "workspace:*",
       },
