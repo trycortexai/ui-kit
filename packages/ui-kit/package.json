@@ -1,7 +1,7 @@
 {
 	"name": "@cortex-ai/ui-kit",
 	"description": "The official cortex UI kit",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"type": "module",
 	"files": [
 		"dist"
