@@ -1,6 +1,6 @@
 "use client";
 
-import type { CortexChatElement } from "@cortex-ai/ui-kit/cortex-chat";
+import type { CortexChatElement } from "@cortex-ai/ui-kit";
 import type { CortexChatOptions as CoreCortexChatOptions } from "@cortex-ai/ui-kit-shared/chat";
 import { useEffect, useRef } from "react";
 import type { CortexUIKitControl } from ".";
