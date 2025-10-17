@@ -1,7 +1,7 @@
 {
 	"name": "@cortex-ai/ui-kit-react",
 	"description": "The official cortex UI kit for React",
-	"version": "0.2.6",
+	"version": "0.2.7",
 	"type": "module",
 	"files": [
 		"dist"
