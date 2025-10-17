@@ -9,14 +9,14 @@ It's in the first phase. Here is a simple guide on how to use the UI kit:
 #### Installation
 
 ```sh
-npm install @cortex-ai/ui-kit
+npm install @cortex-ai/ui-kit-react
 ```
 
 #### Usage
 
 ```tsx
-import { useCortexUIKit } from "@cortex-ai/ui-kit"
-import { CortexChat } from "@cortex-ai/ui-kit/chat"
+import { useCortexUIKit } from "@cortex-ai/ui-kit-react"
+import { CortexChat } from "@cortex-ai/ui-kit-react/chat"
 
 export default function App() {
   const { control } = useCortexUIKit({
