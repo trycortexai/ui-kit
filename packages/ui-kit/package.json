@@ -6,13 +6,11 @@
 	"files": [
 		"dist"
 	],
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
 	"exports": {
-		".": {
+		"./cortex-chat": {
 			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
+				"types": "./dist/cortex-chat.d.ts",
+				"default": "./dist/cortex-chat.js"
 			}
 		},
 		"./package.json": "./package.json"

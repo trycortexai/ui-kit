@@ -20,6 +20,9 @@ export default defineWorkspace(
 		{
 			name: "ui-kit",
 			root: "packages/ui-kit",
+			config: {
+				entry: ["src/cortex-chat.ts"],
+			},
 		},
 		{
 			name: "ui-kit-react",
