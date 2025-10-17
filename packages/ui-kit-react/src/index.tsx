@@ -2,6 +2,9 @@
 
 import type { CortexUIKitAPIOptions } from "@cortex-ai/ui-kit-shared";
 
+// load cortex chat element
+import "@cortex-ai/ui-kit/cortex-chat";
+
 type UseCortexUIKitOptions = {
 	api: CortexUIKitAPIOptions;
 };
