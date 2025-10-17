@@ -1,3 +1,5 @@
+"use client";
+
 import type { CortexUIKitAPIOptions } from "@cortex-ai/ui-kit-shared";
 
 type UseCortexUIKitOptions = {

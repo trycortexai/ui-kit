@@ -31,7 +31,15 @@ export default function App() {
 
   return (
     <div>
-      <CortexChat control={control} agentId="work_xxx" theme="fuchsia" />
+      <CortexChat
+        control={control}
+        options={{
+          agentId: "work_xxx",
+          theme: {
+            accentColor: "fuchsia"
+          }
+        }}
+      />
     </div>
   )
 }
