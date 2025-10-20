@@ -7,6 +7,7 @@
 		"@types/bun": "^1.2.20",
 		"@types/react": "^19.1.10",
 		"@types/react-dom": "^19.1.9",
+		"chokidar": "^4.0.3",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"react": "^19.1.1",
@@ -22,6 +23,7 @@
 	],
 	"scripts": {
 		"build": "bun build.ts",
+		"dev": "bun build.ts --watch",
 		"type-check": "tsc --noEmit"
 	},
 	"type": "module"
