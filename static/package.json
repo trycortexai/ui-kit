@@ -3,20 +3,22 @@
 	"version": "0.2.14",
 	"devDependencies": {
 		"@bunup/plugin-tailwindcss": "^0.14.20",
-		"@heroicons/react": "^2.2.0",
 		"@types/bun": "^1.2.20",
 		"@types/react": "^19.1.10",
 		"@types/react-dom": "^19.1.9",
 		"chokidar": "^4.0.3",
-		"class-variance-authority": "^0.7.1",
-		"clsx": "^2.1.1",
-		"react": "^19.1.1",
-		"react-dom": "^19.1.1",
-		"tailwind-merge": "^3.3.1",
 		"typescript": "^5.9.2"
 	},
 	"dependencies": {
-		"@cortex-ai/ui-kit-shared": "workspace:*"
+		"@cortex-ai/ui-kit-shared": "workspace:*",
+		"@heroicons/react": "^2.2.0",
+		"@tailwindcss/typography": "^0.5.19",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
+		"react-markdown": "^10.1.0",
+		"tailwind-merge": "^3.3.1"
 	},
 	"files": [
 		"dist"

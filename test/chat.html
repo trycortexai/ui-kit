@@ -14,20 +14,22 @@
     customElements.whenDefined('cortex-chat').then(() => {
       const el = document.getElementById("my-chat");
       el.setOptions({
-        agentId: "work_xxx",
+        agentId: "work_2xbmNhJKpNpgUYuRVAdFyz",
         api: {
           getClientSecret(){
-            return "xxx"
+            return "1b81133467d90b24867e23e06f16130a5bdac0a2387817098f8468343af4f28b"
           }
         },
         startScreen: {
-        	suggestedMessages: [{label: "Cool", prompt: "COOL NICE"}]
+        	suggestedMessages: [{label: "What is AI?", prompt: "What is AI?"}]
         },
         composer: {
         	placeholder: "Ask something..."
         },
         theme: {
           colorScheme: "dark",
+          accentColor: "pink",
+          neutralColor: "gray"
         },
       });
     });

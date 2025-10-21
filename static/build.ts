@@ -16,7 +16,6 @@ const copyHtmlPlugin: Bun.BunPlugin = {
 };
 
 async function build() {
-	console.log("Building...");
 	await Bun.build({
 		entrypoints: ["apps/chat/index.tsx"],
 		outdir: "dist/chat",
@@ -27,8 +26,9 @@ async function build() {
 			}),
 			copyHtmlPlugin,
 		],
+		packages: "bundle",
+		minify: true,
 	});
-	console.log("Build complete!");
 }
 
 await build();

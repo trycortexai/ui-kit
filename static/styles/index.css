@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "./theme.css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant neutral-zinc (&:is(.neutral-zinc *));
+@custom-variant neutral-stone (&:is(.neutral-stone *));
+@custom-variant neutral-gray (&:is(.neutral-gray *));

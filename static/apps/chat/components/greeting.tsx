@@ -8,7 +8,7 @@ export default function Greeting(): React.ReactNode {
 
 	return (
 		<div className="flex flex-col items-center justify-center h-full px-4">
-			<div className="max-w-2xl w-full space-y-8">
+			<div className="max-w-2xl w-full space-y-10">
 				<h1 className="text-3xl font-semibold text-neutral-900 dark:text-neutral-100 text-center">
 					{greeting}
 				</h1>
@@ -19,7 +19,7 @@ export default function Greeting(): React.ReactNode {
 							type="button"
 							key={index}
 							onClick={() => sendMessage(message.prompt)}
-							className="p-4 text-left text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+							className="py-3 px-4 text-left text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
 						>
 							{message.label}
 						</button>
