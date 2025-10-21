@@ -1,17 +1,27 @@
+import { useEffect, useRef } from "react";
 import Markdown from "react-markdown";
 import { useChat } from "../hooks/use-chat";
 import Greeting from "./greeting";
 
 export default function Messages(): React.ReactNode {
 	const { currentMessages, isLoading } = useChat();
+	const messagesEndRef = useRef<HTMLDivElement>(null);
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (currentMessages.length < 3) return;
+		if (messagesEndRef.current && scrollContainerRef.current) {
+			messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [currentMessages.length]);
 
 	if (currentMessages.length === 0) {
 		return <Greeting />;
 	}
 
 	return (
-		<div className="flex-1 overflow-y-auto">
-			<div className="max-w-3xl mx-auto px-4 py-8 pb-[20%] space-y-6">
+		<div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
+			<div className="max-w-3xl mx-auto px-4 py-8 pb-[14%] space-y-6">
 				{currentMessages.map((message, index) => (
 					<div
 						key={index}
@@ -43,6 +53,7 @@ export default function Messages(): React.ReactNode {
 						<div className="size-3 bg-neutral-900 dark:bg-white rounded-full animate-pulse" />
 					</div>
 				)}
+				<div ref={messagesEndRef} />
 			</div>
 		</div>
 	);
