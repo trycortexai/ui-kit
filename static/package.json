@@ -1,6 +1,6 @@
 {
 	"name": "@cortex-ai/static",
-	"version": "0.2.14",
+	"version": "0.2.15",
 	"devDependencies": {
 		"@bunup/plugin-tailwindcss": "^0.14.20",
 		"@types/bun": "^1.2.20",
