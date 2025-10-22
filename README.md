@@ -39,6 +39,7 @@ export default function App() {
             accentColor: "fuchsia"
           }
         }}
+        className="h-dvh w-[400px] rounded-2xl border border-zinc-200 dark:border-zing-800"
       />
     </div>
   )
